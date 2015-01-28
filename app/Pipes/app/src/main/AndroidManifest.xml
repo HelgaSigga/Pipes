@@ -16,6 +16,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Map"
+            android:label="@string/title_activity_map"
+            android:parentActivityName=".Start">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Start" />
+        </activity>
+
+        <activity
+            android:name=".Data"
+            android:label="@string/title_activity_data"
+            android:parentActivityName=".Start">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Start" />
+        </activity>
+
+        <activity
+            android:name=".Database"
+            android:label="@string/title_activity_database"
+            android:parentActivityName=".Start">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Start" />
+        </activity>
+
     </application>
 
 </manifest>

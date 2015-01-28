@@ -4,5 +4,12 @@
     <string name="app_name">Pipes</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="map">Kort</string>
+    <string name="database">Gagnagrunnur</string>
+    <string name="data">Upplýsingar um loka</string>
+    <string name="info">Vinsamlegast veljið þær upplýsingar sem þið viljið sjá</string>
+    <string name="title_activity_map">Kort</string>
+    <string name="title_activity_data">Upplýsingar um loka</string>
+    <string name="title_activity_database">Gagnagrunnur</string>
 
 </resources>
