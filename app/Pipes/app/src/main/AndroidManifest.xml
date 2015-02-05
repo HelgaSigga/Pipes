@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quima.pipes" >
 
+    <uses-sdk
+        android:minSdkVersion="5"
+        android:targetSdkVersion="21" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
