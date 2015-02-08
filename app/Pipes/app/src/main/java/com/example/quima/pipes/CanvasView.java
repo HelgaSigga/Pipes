@@ -14,8 +14,7 @@ import android.util.FloatMath;
  * Created by Benedikt Sævarss on 7.2.2015.
  */
 public class CanvasView extends View {
-    float posX = 0,posY = 0;
-    float markerX = 0, markerY = 0;
+    float posX = 300,posY = 150;
     float scaleX = 1, scaleY = 1;
     Paint paint = new Paint();
     private Bitmap bmp;
@@ -30,9 +29,8 @@ public class CanvasView extends View {
     }
 
     private void scaleImage(boolean zoom){
-        if (scaleX < 0.1 && scaleY < 0.1){
-            scaleX = 0.1f;
-            scaleY = 0.1f;
+        if ((scaleX <= 0.6f && scaleY <= 0.6f)||(scaleX >= 3f && scaleY >= 3f)){
+            return;
         }
         if (zoom){
             scaleX = scaleX + 0.2f;
@@ -49,6 +47,7 @@ public class CanvasView extends View {
         float h = bmp.getHeight();
 
         canvas.translate(cx, cy);
+        canvas.scale(scaleX , scaleY);
         canvas.drawBitmap(bmp, -w/2, -h/2, null);
     }
 
@@ -56,7 +55,6 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.GRAY);
         paint.setColor(Color.WHITE);
-        canvas.scale(scaleX , scaleY);
         drawAt(canvas,posX,posY);
         canvas.drawLine(0, 0, 200, 200, paint);
     }
@@ -68,8 +66,6 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                //markerX = event.getX();
-                //markerY = event.getY();
                 Log.d("pipes", "ACTION_DOWN");
                 touchOneStatus = true;
                 break;
