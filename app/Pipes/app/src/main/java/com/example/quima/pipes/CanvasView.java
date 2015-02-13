@@ -14,7 +14,9 @@ import android.util.FloatMath;
  * Created by Benedikt Sævarss on 7.2.2015.
  */
 public class CanvasView extends View {
-    float posX = 300,posY = 150;
+    float imagePosX = 300,imagePosY = 150;
+    float oldPosX = 0,oldPosY = 0;
+    float posX = 0,posY = 0;
     float scaleX = 1, scaleY = 1;
     Paint paint = new Paint();
     private Bitmap bmp;
@@ -25,7 +27,7 @@ public class CanvasView extends View {
 
     public CanvasView(Context context) {
         super(context);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.pipes);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.max1);
     }
 
     private void scaleImage(boolean zoom){
@@ -42,6 +44,12 @@ public class CanvasView extends View {
         }
     }
 
+    private void moveImage(float cx, float cy){
+        Log.d("pipes",imagePosX + " " + imagePosY);
+        imagePosX = imagePosX - cx;
+        imagePosY = imagePosY - cy;
+    }
+
     private void drawAt(Canvas canvas, float cx, float cy){
         float w = bmp.getWidth();
         float h = bmp.getHeight();
@@ -55,7 +63,7 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.GRAY);
         paint.setColor(Color.WHITE);
-        drawAt(canvas,posX,posY);
+        drawAt(canvas,imagePosX,imagePosY);
         canvas.drawLine(0, 0, 200, 200, paint);
     }
 
@@ -68,6 +76,8 @@ public class CanvasView extends View {
             case MotionEvent.ACTION_DOWN:
                 Log.d("pipes", "ACTION_DOWN");
                 touchOneStatus = true;
+                oldPosX = event.getX();
+                oldPosY = event.getY();
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 Log.d("pipes","ACTION_POINTER_DOWN");
@@ -92,6 +102,11 @@ public class CanvasView extends View {
                 }else {
                     posX = event.getX();
                     posY = event.getY();
+                    distx = oldPosX - posX;
+                    disty = oldPosY - posY;
+                    moveImage(distx,disty);
+                    oldPosX = posX;
+                    oldPosY = posY;
                 }
                 invalidate();
                 break;
