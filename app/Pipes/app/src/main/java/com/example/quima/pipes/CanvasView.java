@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,19 +15,29 @@ import android.util.FloatMath;
  * Created by Benedikt Sævarss on 7.2.2015.
  */
 public class CanvasView extends View {
+
     float imagePosX = 300,imagePosY = 150;
     float oldPosX = 0,oldPosY = 0;
     float posX = 0,posY = 0;
     float scaleX = 1, scaleY = 1;
-    Paint paint = new Paint();
-    private Bitmap bmp;
+    float distOld = 1, distCurrent = 1;
+
     Boolean touchOneStatus = false;
     Boolean touchTwoStatus = false;
-    float distOld = 1;
-    float distCurrent = 1;
+
+    private Bitmap bmp;
+    Paint paint = new Paint();
 
     public CanvasView(Context context) {
         super(context);
+        init(context);
+    }
+    public CanvasView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    private void init(Context context) {
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.max1);
     }
 
