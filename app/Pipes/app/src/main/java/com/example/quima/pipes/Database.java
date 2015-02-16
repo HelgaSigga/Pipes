@@ -170,5 +170,4 @@ Reynum að finna betri leið...
     //location
     //source
     //comment
-
 }
