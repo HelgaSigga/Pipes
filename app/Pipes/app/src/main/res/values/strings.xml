@@ -4,5 +4,8 @@
     <string name="app_name">Pipes</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="listDBactivity">Listi yfir loka</string>
+    <string name="deleteDBactivity">Eyða fyrsta</string>
+    <string name="addDBactivity">Bæta í lista</string>
 
 </resources>

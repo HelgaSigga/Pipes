@@ -1,9 +1,11 @@
 package com.example.quima.pipes;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Start extends Activity {
@@ -33,4 +35,11 @@ public class Start extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void onButtonClick(View v){
+        startActivity(new Intent(getApplicationContext(), DatabaseActivity.class));
+
+    }
+
+
 }
