@@ -8,6 +8,7 @@ import android.util.Log;
 /**
  * Created by Quima on 12/02/2015.
  */
+
 public class SQLiteHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "valves.db";

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,17 +17,19 @@ import android.util.FloatMath;
  */
 public class CanvasView extends View {
 
-    float imagePosX = 300,imagePosY = 150;
+    float imagePosX = 200,imagePosY = 300;
     float oldPosX = 0,oldPosY = 0;
     float posX = 0,posY = 0;
     float scaleX = 1, scaleY = 1;
     float distOld = 1, distCurrent = 1;
 
-    Boolean touchOneStatus = false;
-    Boolean touchTwoStatus = false;
+    boolean drawEnable = false;
+    boolean touchOneStatus = false;
+    boolean touchTwoStatus = false;
 
-    private Bitmap bmp;
-    Paint paint = new Paint();
+    private Bitmap bmp,bmp1,bmp2;
+    private Paint mPaint;
+    private Path mPath;
 
     public CanvasView(Context context) {
         super(context);
@@ -38,7 +41,16 @@ public class CanvasView extends View {
     }
 
     private void init(Context context) {
+        mPath = new Path();
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(10);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.max1);
+        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
     }
 
     private void scaleImage(boolean zoom){
@@ -46,12 +58,12 @@ public class CanvasView extends View {
             return;
         }
         if (zoom){
-            scaleX = scaleX + 0.2f;
-            scaleY = scaleY + 0.2f;
+            scaleX = scaleX + 0.1f;
+            scaleY = scaleY + 0.1f;
         }
         else{
-            scaleX = scaleX - 0.2f;
-            scaleY = scaleY - 0.2f;
+            scaleX = scaleX - 0.1f;
+            scaleY = scaleY - 0.1f;
         }
     }
 
@@ -61,27 +73,33 @@ public class CanvasView extends View {
         imagePosY = imagePosY - cy;
     }
 
-    private void drawAt(Canvas canvas, float cx, float cy){
-        float w = bmp.getWidth();
-        float h = bmp.getHeight();
+    private void drawAt(Canvas canvas, Bitmap img, float cx, float cy){
+        float w = img.getWidth();
+        float h = img.getHeight();
 
         canvas.translate(cx, cy);
         canvas.scale(scaleX , scaleY);
-        canvas.drawBitmap(bmp, -w/2, -h/2, null);
+        canvas.drawBitmap(img, -w/2, -h/2, null);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        String x = Map.getMap();
         canvas.drawColor(Color.GRAY);
-        paint.setColor(Color.WHITE);
-        drawAt(canvas,imagePosX,imagePosY);
-        canvas.drawLine(0, 0, 200, 200, paint);
+        if(x != null) {
+            if (x.equals("H")) drawAt(canvas, bmp, imagePosX, imagePosY);
+            else if (x.equals("C")) drawAt(canvas, bmp2, imagePosX, imagePosY);
+            else if (x.equals("S")) drawAt(canvas, bmp2, imagePosX, imagePosY);
+        }
+        canvas.drawPath(mPath, mPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         float distx, disty;
+        boolean draw = Map.getDraw();
+        boolean clear = Map.getClear();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -89,6 +107,12 @@ public class CanvasView extends View {
                 touchOneStatus = true;
                 oldPosX = event.getX();
                 oldPosY = event.getY();
+                if(clear){
+                    mPath.reset();
+                }
+                if(draw) {
+                    mPath.moveTo(oldPosX-imagePosX, oldPosY-imagePosY);
+                }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 Log.d("pipes","ACTION_POINTER_DOWN");
@@ -115,7 +139,11 @@ public class CanvasView extends View {
                     posY = event.getY();
                     distx = oldPosX - posX;
                     disty = oldPosY - posY;
-                    moveImage(distx,disty);
+                    if(draw){
+                        mPath.lineTo(posX-imagePosX,posY-imagePosY);
+                    }else {
+                        moveImage(distx,disty);
+                    }
                     oldPosX = posX;
                     oldPosY = posY;
                 }
@@ -132,12 +160,4 @@ public class CanvasView extends View {
         }
         return true;
     }
-
-      /*
-      	canvas.save();
-      		canvas.translate(50, 50);
-      		canvas.scale(0.5f, 0.5f);
-      		canvas.drawRect(0.0, 0.0, 5.0, 5.0, paint);
-  		canvas.restore();*/
-
 }

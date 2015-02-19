@@ -13,7 +13,17 @@
     <string name="data">Upplýsingar um loka</string>
     <string name="info">Vinsamlegast veljið þær upplýsingar sem þið viljið sjá</string>
     <string name="paint">Teikna</string>
+    <string name="mapMotion">Hreyfa kort</string>
     <string name="save">Vista</string>
+    <string name="clear">Hreinsa</string>
+
+    <string name="findValve">Finna loka</string>
+    <string name="findAddress">Finna heimilisfangi</string>
+    <string name="showData">Birta öll gögn</string>
+    <string name="hotWater">Heitt vatn</string>
+    <string name="coldWater">Kalt vatn</string>
+    <string name="sewage">Skolp</string>
+
     <string name="title_activity_map">Kort</string>
     <string name="title_activity_data">Upplýsingar um loka</string>
     <string name="title_activity_database">Gagnagrunnur</string>

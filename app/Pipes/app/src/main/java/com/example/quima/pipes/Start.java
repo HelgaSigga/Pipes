@@ -17,25 +17,13 @@ public class Start extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Button btn1 = (Button)findViewById(R.id.map);
         Button btn2 = (Button)findViewById(R.id.database);
-        Button btn3 = (Button)findViewById(R.id.data);
-        btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.map:
-                Intent Map = new Intent(this, Map.class);
-                startActivity(Map);
-                break;
-            case R.id.data:
-                Intent Data = new Intent(this, Data.class);
-                startActivity(Data);
-                break;
             case R.id.database:
                 Intent Database = new Intent(this, DatabaseActivity.class);
                 startActivity(Database);
@@ -55,9 +43,34 @@ public class Start extends Activity implements OnClickListener{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        switch(item.getItemId()){
+            case R.id.hotWater:
+                Intent Hot = new Intent(this, Map.class);
+                Hot.putExtra("map" , "H");
+                startActivity(Hot);
             return true;
+            case R.id.coldWater:
+                Intent Cold = new Intent(this, Map.class);
+                Cold.putExtra("map", "C");
+                startActivity(Cold);
+                return true;
+            case R.id.sewage:
+                Intent Sewage = new Intent(this, Map.class);
+                startActivity(Sewage);
+                Sewage.putExtra("map", "S");
+                return true;
+            case R.id.findValve:
+                Intent Valve = new Intent(this, Data.class);
+                startActivity(Valve);
+                return true;
+            case R.id.findAddress:
+                Intent Address = new Intent(this, Data.class);
+                startActivity(Address);
+                return true;
+            case R.id.showData:
+                Intent showData = new Intent(this, Data.class);
+                startActivity(showData);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

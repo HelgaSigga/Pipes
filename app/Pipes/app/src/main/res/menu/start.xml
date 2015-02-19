@@ -1,8 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Start" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/search_icon"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/database"
+        android:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/findValve"
+                android:title="@string/findValve"
+                />
+
+            <item
+                android:id="@+id/findAddress"
+                android:title="@string/findAddress"
+                />
+
+            <item
+                android:id="@+id/showData"
+                android:title="@string/showData"
+                />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/map_icon"
+        android:icon="@drawable/ic_action_map"
+        android:title="@string/map"
+        android:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/hotWater"
+                android:title="@string/hotWater"
+                />
+
+            <item
+                android:id="@+id/coldWater"
+                android:title="@string/coldWater"
+                />
+
+            <item
+                android:id="@+id/sewage"
+                android:title="@string/sewage"
+                />
+        </menu>
+    </item>
 </menu>
