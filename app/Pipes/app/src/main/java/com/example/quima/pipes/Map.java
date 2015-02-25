@@ -26,8 +26,7 @@ public class Map extends Activity{
         setContentView(R.layout.activity_map);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        {
+        if(extras != null){
             map = extras.getString("map");
         }
     }

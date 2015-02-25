@@ -17,8 +17,10 @@
     <string name="save">Vista</string>
     <string name="clear">Hreinsa</string>
 
-    <string name="findValve">Finna loka</string>
-    <string name="findAddress">Finna heimilisfangi</string>
+    <string name="findValve">Leit eftir loka</string>
+    <string name="findValveText">Veldu loka og það byrtast öll heimilisföng sem er tengd honum</string>
+    <string name="findAddress">Leit eftir heimilisfangi</string>
+    <string name="findAddressText">Veldu heimilisfang og það kemur upp hvaða loki er tengdur því</string>
     <string name="showData">Birta öll gögn</string>
     <string name="hotWater">Heitt vatn</string>
     <string name="coldWater">Kalt vatn</string>

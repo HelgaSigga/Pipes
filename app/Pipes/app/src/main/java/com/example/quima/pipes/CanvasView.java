@@ -20,10 +20,9 @@ public class CanvasView extends View {
     float imagePosX = 200,imagePosY = 300;
     float oldPosX = 0,oldPosY = 0;
     float posX = 0,posY = 0;
-    float scaleX = 1, scaleY = 1;
+    float scale = 1;
     float distOld = 1, distCurrent = 1;
 
-    boolean drawEnable = false;
     boolean touchOneStatus = false;
     boolean touchTwoStatus = false;
 
@@ -33,14 +32,10 @@ public class CanvasView extends View {
 
     public CanvasView(Context context) {
         super(context);
-        init(context);
     }
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
-    }
 
-    private void init(Context context) {
         mPath = new Path();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -54,31 +49,34 @@ public class CanvasView extends View {
     }
 
     private void scaleImage(boolean zoom){
-        if ((scaleX <= 0.6f && scaleY <= 0.6f)||(scaleX >= 3f && scaleY >= 3f)){
-            return;
-        }
-        if (zoom){
-            scaleX = scaleX + 0.1f;
-            scaleY = scaleY + 0.1f;
-        }
-        else{
-            scaleX = scaleX - 0.1f;
-            scaleY = scaleY - 0.1f;
+        if (scale >= 0.6f || scale <= 3f){
+            if (zoom){
+                scale = scale + 0.1f;
+            }
+            else{
+                scale = scale - 0.1f;
+            }
         }
     }
 
     private void moveImage(float cx, float cy){
-        Log.d("pipes",imagePosX + " " + imagePosY);
         imagePosX = imagePosX - cx;
         imagePosY = imagePosY - cy;
     }
 
-    private void drawAt(Canvas canvas, Bitmap img, float cx, float cy){
+    private float getDistance(float x1, float y1, float x2, float y2){
+        float distx, disty;
+        distx = x1 - x2;
+        disty = y1 - y2;
+        return FloatMath.sqrt(distx * distx + disty * disty);
+    }
+
+    private void drawAt(Canvas canvas, Bitmap img, float cx, float cy, float scale){
         float w = img.getWidth();
         float h = img.getHeight();
 
         canvas.translate(cx, cy);
-        canvas.scale(scaleX , scaleY);
+        canvas.scale(scale , scale);
         canvas.drawBitmap(img, -w/2, -h/2, null);
     }
 
@@ -87,9 +85,9 @@ public class CanvasView extends View {
         String x = Map.getMap();
         canvas.drawColor(Color.GRAY);
         if(x != null) {
-            if (x.equals("H")) drawAt(canvas, bmp, imagePosX, imagePosY);
-            else if (x.equals("C")) drawAt(canvas, bmp2, imagePosX, imagePosY);
-            else if (x.equals("S")) drawAt(canvas, bmp2, imagePosX, imagePosY);
+            if (x.equals("H")) drawAt(canvas, bmp, imagePosX, imagePosY, scale);
+            else if (x.equals("C")) drawAt(canvas, bmp2, imagePosX, imagePosY, scale);
+            else if (x.equals("S")) drawAt(canvas, bmp2, imagePosX, imagePosY, scale);
         }
         canvas.drawPath(mPath, mPaint);
     }
@@ -97,13 +95,11 @@ public class CanvasView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        float distx, disty;
         boolean draw = Map.getDraw();
         boolean clear = Map.getClear();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.d("pipes", "ACTION_DOWN");
                 touchOneStatus = true;
                 oldPosX = event.getX();
                 oldPosY = event.getY();
@@ -114,20 +110,16 @@ public class CanvasView extends View {
                     mPath.moveTo(oldPosX-imagePosX, oldPosY-imagePosY);
                 }
                 break;
+
             case MotionEvent.ACTION_POINTER_DOWN:
                 Log.d("pipes","ACTION_POINTER_DOWN");
                 touchTwoStatus = true;
-                //Get the distance
-                distx = event.getX(0) - event.getX(1);
-                disty = event.getY(0) - event.getY(1);
-                distOld = FloatMath.sqrt(distx * distx + disty * disty);
+                distOld = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
                 break;
+
             case MotionEvent.ACTION_MOVE:
                 if(touchOneStatus && touchTwoStatus){
-                    //Get the current distance
-                    distx = event.getX(0) - event.getX(1);
-                    disty = event.getY(0) - event.getY(1);
-                    distCurrent = FloatMath.sqrt(distx * distx + disty * disty);
+                    distCurrent = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
                     if (distOld <= distCurrent){
                         scaleImage(true);
                     }
@@ -137,22 +129,21 @@ public class CanvasView extends View {
                 }else {
                     posX = event.getX();
                     posY = event.getY();
-                    distx = oldPosX - posX;
-                    disty = oldPosY - posY;
                     if(draw){
                         mPath.lineTo(posX-imagePosX,posY-imagePosY);
                     }else {
-                        moveImage(distx,disty);
+                        moveImage(oldPosX - posX,oldPosY - posY);
                     }
                     oldPosX = posX;
                     oldPosY = posY;
                 }
                 invalidate();
                 break;
+
             case MotionEvent.ACTION_UP:
-                Log.d("pipes","ACTION_UP");
                 touchOneStatus = false;
                 break;
+
             case MotionEvent.ACTION_POINTER_UP:
                 Log.d("pipes","ACTION_POINTER_UP");
                 touchTwoStatus = false;

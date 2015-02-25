@@ -61,10 +61,12 @@ public class Start extends Activity implements OnClickListener{
                 return true;
             case R.id.findValve:
                 Intent Valve = new Intent(this, Data.class);
+                Valve.putExtra("data", "V");
                 startActivity(Valve);
                 return true;
             case R.id.findAddress:
                 Intent Address = new Intent(this, Data.class);
+                Address.putExtra("data", "A");
                 startActivity(Address);
                 return true;
             case R.id.showData:
