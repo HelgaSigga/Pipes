@@ -1,15 +1,21 @@
 package com.example.quima.pipes;
 
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.Random;
 
 import android.app.ListActivity;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+
 
 /**
  * Created by Quima on 07/02/2015.
@@ -17,12 +23,15 @@ import android.widget.ArrayAdapter;
 public class DatabaseActivity extends ListActivity {
 
    private Database database;
+    private Context context;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databaseactivity);
 
+        final ListView listView = getListView();
 
         database = new Database(this);
         try{
@@ -33,27 +42,44 @@ public class DatabaseActivity extends ListActivity {
 
         List<ValveModel> valves = database.getAllValves();
 
-        ArrayAdapter<ValveModel> adapter = new ArrayAdapter<ValveModel>(this, android.R.layout.simple_expandable_list_item_1, valves);
+       // ArrayAdapter<ValveModel> adapter = new ArrayAdapter<ValveModel>(this, android.R.layout.simple_expandable_list_item_1, valves);
+        DatabaseAdapter adapter = new DatabaseAdapter(this, valves, database);
         setListAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TextView right = (TextView) view.findViewById(R.id.rowDatabaseLocation);
+                DatabaseAdapter adapter = (DatabaseAdapter) getListAdapter();
+                adapter.inflateItem(position, view);
+            }
+        });
     }
 
     public void onClick(View view){
-        ArrayAdapter<ValveModel> adapter = (ArrayAdapter<ValveModel>) getListAdapter();
+        DatabaseAdapter adapter = (DatabaseAdapter) getListAdapter();
         ValveModel valveModel = null;
-        switch (view.getId()){
+        if(view.getId() == R.id.add){ //line added
+       /* switch (view.getId()){
             case R.id.add:
+                /*
                 String[] valves = new String[] {"HF", "HB", "HS"};  //Need to fix this
                 int nextInt = new Random().nextInt(3); //Need to fix this
                 valveModel = database.createValve("", "", "", "", "", "" ); //Need to fix this
                 adapter.add(valveModel);
-                break;
-            case R.id.delete:
-                if(getListAdapter().getCount() > 0){
-                    valveModel = (ValveModel) getListAdapter().getItem(0);
-                    database.deleteValveTable(valveModel);
-                    adapter.remove(valveModel);
+                */
+
+                DialogFragment addDialog = new AddInfoDialog();
+                Activity activity = (Activity) context;
+                FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
+                Fragment prev = activity.getFragmentManager().findFragmentByTag("awwa");
+                if(prev != null){
+                    ft.remove(prev);
                 }
-                break;
+                ft.addToBackStack(null);
+                addDialog.show(ft,"awwa");
+                //break;
+
         }
         adapter.notifyDataSetChanged();
 

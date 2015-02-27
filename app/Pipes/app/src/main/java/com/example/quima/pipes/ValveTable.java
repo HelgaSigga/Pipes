@@ -73,6 +73,24 @@ public class ValveTable {
         return newValveModel;
     }
 
+    public static ValveModel updateValve(SQLiteDatabase database, ValveModel valve){
+        ContentValues values = new ContentValues();
+        values.put(Type, valve.getType());
+        values.put(Area, valve.getArea());
+        values.put(Number, valve.getNumber());
+        values.put(Location, valve.getLocation());
+        values.put(Source, valve.getSource());
+        values.put(Comment, valve.getComment());
+        long id = valve.getId();
+        Log.e(TAG, "Update id number " + id + ", with valve::( " + valve.toString() + " )\n" );
+        int rows = database.update(tableName, values, Id + " = " + id, null);
+        Cursor cursor = database.query(tableName, allColumns, Id + " = " + id, null, null, null, null);
+        cursor.moveToFirst();
+        ValveModel newValveModel = cursorToValve(cursor);
+        Log.e(TAG, "Affected " + rows + " rows.\nUpdate as valve::( " + newValveModel.toString() + " )\n");
+        return newValveModel;
+    }
+
     public static ValveModel createValveFromString(SQLiteDatabase database, String valve){
 
         Log.e(TAG, "Read from file:\n\t" + valve);

@@ -15,9 +15,21 @@
         android:layout_height="wrap_content"
         android:text="@string/database"
         android:id="@+id/database"
+<<<<<<< HEAD
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
+=======
+<<<<<<< HEAD
+        android:layout_below="@+id/map"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+=======
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+>>>>>>> ecfccee58bd6f52fe24f6816de7e12617fbcc252
+>>>>>>> Fixing database
 
     <TextView
         android:layout_width="wrap_content"

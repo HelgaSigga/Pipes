@@ -18,12 +18,30 @@ public class Start extends Activity implements OnClickListener{
         setContentView(R.layout.activity_start);
 
         Button btn2 = (Button)findViewById(R.id.database);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        btn1.setOnClickListener(this);
+=======
+>>>>>>> ecfccee58bd6f52fe24f6816de7e12617fbcc252
+>>>>>>> Fixing database
         btn2.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            case R.id.map:
+                Intent Map = new Intent(this, Map.class);
+                startActivity(Map);
+                break;
+
+=======
+>>>>>>> ecfccee58bd6f52fe24f6816de7e12617fbcc252
+>>>>>>> Fixing database
             case R.id.database:
                 Intent Database = new Intent(this, DatabaseActivity.class);
                 startActivity(Database);
