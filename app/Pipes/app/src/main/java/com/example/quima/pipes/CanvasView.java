@@ -17,16 +17,16 @@ import android.util.FloatMath;
  */
 public class CanvasView extends View {
 
-    float imagePosX = 200,imagePosY = 300;
     float oldPosX = 0,oldPosY = 0;
     float posX = 0,posY = 0;
-    float scale = 1;
     float distOld = 1, distCurrent = 1;
 
+    boolean mapSelected = false;
     boolean touchOneStatus = false;
     boolean touchTwoStatus = false;
 
-    private Bitmap bmp,bmp1,bmp2;
+    private Bitmap bmp,bmp2;
+    private Image image;
     private Paint mPaint;
     private Path mPath;
 
@@ -44,24 +44,26 @@ public class CanvasView extends View {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(10);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.max1);
-        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
     }
 
-    private void scaleImage(boolean zoom){
-        if (scale >= 0.6f || scale <= 3f){
-            if (zoom){
-                scale = scale + 0.1f;
+    private void selectMap(){
+        String type = Map.getMap();
+        if(type != null) {
+            if (type.equals("H")) {
+                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.pipes1_01);
+                //bmp.prepareToDraw();
+                //bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                //bmp2.prepareToDraw();
+            } else if (type.equals("C")) {
+                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.max1);
+                //bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+            } else if (type.equals("S")) {
+                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                //bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
             }
-            else{
-                scale = scale - 0.1f;
-            }
+            image = new Image(this, bmp/*,bmp2*/);
+            mapSelected = true;
         }
-    }
-
-    private void moveImage(float cx, float cy){
-        imagePosX = imagePosX - cx;
-        imagePosY = imagePosY - cy;
     }
 
     private float getDistance(float x1, float y1, float x2, float y2){
@@ -71,30 +73,16 @@ public class CanvasView extends View {
         return FloatMath.sqrt(distx * distx + disty * disty);
     }
 
-    private void drawAt(Canvas canvas, Bitmap img, float cx, float cy, float scale){
-        float w = img.getWidth();
-        float h = img.getHeight();
-
-        canvas.translate(cx, cy);
-        canvas.scale(scale , scale);
-        canvas.drawBitmap(img, -w/2, -h/2, null);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
-        String x = Map.getMap();
+        if(!mapSelected){selectMap();}
         canvas.drawColor(Color.GRAY);
-        if(x != null) {
-            if (x.equals("H")) drawAt(canvas, bmp, imagePosX, imagePosY, scale);
-            else if (x.equals("C")) drawAt(canvas, bmp2, imagePosX, imagePosY, scale);
-            else if (x.equals("S")) drawAt(canvas, bmp2, imagePosX, imagePosY, scale);
-        }
+        image.Draw(canvas);
         canvas.drawPath(mPath, mPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         boolean draw = Map.getDraw();
         boolean clear = Map.getClear();
 
@@ -107,7 +95,7 @@ public class CanvasView extends View {
                     mPath.reset();
                 }
                 if(draw) {
-                    mPath.moveTo(oldPosX-imagePosX, oldPosY-imagePosY);
+                    mPath.moveTo(oldPosX-image.getPosX(), oldPosY-image.getPosY());
                 }
                 break;
 
@@ -121,18 +109,17 @@ public class CanvasView extends View {
                 if(touchOneStatus && touchTwoStatus){
                     distCurrent = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
                     if (distOld <= distCurrent){
-                        scaleImage(true);
-                    }
-                    else {
-                        scaleImage(false);
+                        image.zoomInn();
+                    }else {
+                        image.zoomOut();
                     }
                 }else {
                     posX = event.getX();
                     posY = event.getY();
                     if(draw){
-                        mPath.lineTo(posX-imagePosX,posY-imagePosY);
+                        mPath.lineTo(posX-image.getPosX(),posY-image.getPosY());
                     }else {
-                        moveImage(oldPosX - posX,oldPosY - posY);
+                        image.moveImage(oldPosX - posX,oldPosY - posY);
                     }
                     oldPosX = posX;
                     oldPosY = posY;

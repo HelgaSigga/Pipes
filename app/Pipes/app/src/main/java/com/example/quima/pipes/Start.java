@@ -56,8 +56,8 @@ public class Start extends Activity implements OnClickListener{
                 return true;
             case R.id.sewage:
                 Intent Sewage = new Intent(this, Map.class);
-                startActivity(Sewage);
                 Sewage.putExtra("map", "S");
+                startActivity(Sewage);
                 return true;
             case R.id.findValve:
                 Intent Valve = new Intent(this, Data.class);
