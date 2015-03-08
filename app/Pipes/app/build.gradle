@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,4 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.google.android.gms:play-services-base:6.5.87'
+    //classpath 'com.android.tools.build:gradle:1.0.1'
+    //compile files('/Users/katrineliasdottir/AndroidStudioProjects/Hiti/app/Pipes/libs/gcmReceiver.jar')
 }

@@ -8,8 +8,8 @@ import android.util.Log;
 /**
  * Created by Quima on 12/02/2015.
  */
-/*
-public class SQLiteHelper extends SQLiteOpenHelper{
+
+class SQLiteHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "valves.db";
     public static final int DATABASE_VERSION = 1;
@@ -42,4 +42,4 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         database.execSQL("DROP TABLE IF EXISTS " + ValveTypeTable.getTableName());
         onCreate(database);
     }
-}*/
+}
