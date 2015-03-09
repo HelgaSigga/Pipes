@@ -13,48 +13,45 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/database"
+        android:text="  Gagnagrunnur  "
         android:id="@+id/database"
         android:layout_marginTop="23dp"
         android:layout_below="@+id/info"
         android:layout_centerHorizontal="true"
-        android:background="#ffd6ffe2" />
+        android:background="@xml/bevel_button"
+        android:textColor="#ffffffff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/info"
+        android:text="     Vinsamlega veljið þær upplýsingar sem þið viljið sjá"
         android:id="@+id/info"
+        android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp"
-        android:background="#ffffffff" />
+        android:layout_alignLeft="@+id/emergency_text"
+        android:layout_alignStart="@+id/emergency_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ffffffff"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Senda skilaboð til notenda       "
+        android:text=" Senda skilaboð til notenda       "
         android:id="@+id/emergency_text"
-        android:layout_marginTop="51dp"
         android:textColor="#ff000000"
-        android:layout_below="@+id/database"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/message_button"
-        android:layout_marginTop="32dp"
-        android:background="#ffd6ffe2"
-        android:shadowColor="#ff5e5e5e"
+        android:background="@xml/bevel_button"
+        android:text="  Skilaboð  "
+        android:textColor="#ffffffff"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/emergency_text"
-        android:layout_centerHorizontal="true"
-        android:text="Skilaboð" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
