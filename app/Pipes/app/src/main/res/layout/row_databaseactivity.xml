@@ -9,9 +9,11 @@
         android:layout_width="200px"
         android:layout_height="200px"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1:5\nHF"
+        android:text="HF\n1:5"
+        android:textColor="#ffffff"
         android:id="@+id/rowDatabaseID"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="#C97933"/>
 
     <View
         android:layout_width="1dp"
@@ -24,31 +26,38 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp">
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Staðsetning: Hafnabakka 7"
             android:id="@+id/rowDatabaseLocation"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right"
             android:paddingTop="2dp">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit"
                 android:id="@+id/rowDatabaseEditButton"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:background="@xml/database_button"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"
                 android:id="@+id/rowDatabaseDeleteButton"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:background="@xml/database_button"/>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
