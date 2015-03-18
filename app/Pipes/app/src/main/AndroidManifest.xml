@@ -34,24 +34,21 @@
         </activity>
         <activity
             android:name=".Map"
-            android:label="@string/title_activity_map"
-            android:parentActivityName=".Start" >
+            android:label="@string/title_activity_map" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Start" />
         </activity>
         <activity
             android:name=".Data"
-            android:label="@string/title_activity_data"
-            android:parentActivityName=".Start" >
+            android:label="@string/title_activity_data" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Start" />
         </activity>
         <activity
             android:name=".DatabaseActivity"
-            android:label="@string/title_activity_database"
-            android:parentActivityName=".Start" >
+            android:label="@string/title_activity_database" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Start" />
