@@ -149,6 +149,80 @@ public class ValveTable {
 
     }
 
+    public static List<ValveModel> getValvesByString (SQLiteDatabase database, String raw){
+
+        List<ValveModel> valves = new ArrayList<ValveModel>();
+        raw = raw.replace(" ", "%").replace(".", "%" ).replace(",", "%" ).replace(";", "%" ).replace(":", "%" );
+        raw = raw.replaceAll("%+","%");
+        String select = createSearchString(raw);
+        Cursor cursor = database.query(tableName, allColumns, select, null, null, null, null);
+        if(cursor.getCount() == 0){
+            String[] a = raw.split("%");
+            int max = 0;
+            int maxIndex = 0;
+            for(int i = 0; i < a.length; i++){
+                cursor = database.query(tableName, allColumns, createSearchString(a[i]), null, null, null, null);
+                if(cursor.getCount() > max){
+                    max = cursor.getCount();
+                    maxIndex = i;
+                }
+            }
+            if(max>0){
+                raw = a[maxIndex];
+                cursor = database.query(tableName, allColumns, createSearchString(raw), null, null, null, null);
+            }
+        }
+        /* select should be based on raw, if cursor is empty then refine select and try again. */
+        Log.e(TAG, "Should be searching for: " + raw);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            ValveModel valve = cursorToValve(cursor);
+            valves.add(valve);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return valves;
+
+    }
+
+    private static String createSearchString(String s){
+        return Location + " LIKE '%" + s + "%' OR " + Comment + " LIKE '%" + s + "%'";
+    }
+
+    public static List<ValveModel> getValvesByArea(SQLiteDatabase database, String area){
+        List<ValveModel> valves = new ArrayList<ValveModel>();
+
+        Cursor cursor = database.query(tableName, allColumns, Area + "=" + area, null, null, null, null);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            ValveModel valve = cursorToValve(cursor);
+            valves.add(valve);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return valves;
+    }
+
+    public static ArrayList<String> getAreas(SQLiteDatabase database){
+        ArrayList<String> areas = new ArrayList<String>();
+
+        String[] columns = {Area};
+        Cursor cursor = database.query(true, tableName, columns, null, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            areas.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return areas;
+    }
+
     public static void deleteValve(SQLiteDatabase database, ValveModel type){
         long id = type.getId();
         System.out.println("Deleted line with ID: " + id);

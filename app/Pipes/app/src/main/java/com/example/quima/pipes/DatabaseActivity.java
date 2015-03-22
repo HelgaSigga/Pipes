@@ -1,5 +1,6 @@
 package com.example.quima.pipes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -22,9 +23,17 @@ import android.content.Context;
  */
 public class DatabaseActivity extends ListActivity {
 
-   private Database database;
-    private Context context;
+    private Database database;
+    private Activity activity;
 
+    public static final String KEY_ACTION = "query type";
+    public static final String KEY_SEARCH = "search string";
+    public static final int VAL_ALL = 0;
+    public static final int VAL_AREA = 1;
+    public static final int VAL_SEARCH = 2;
+
+    private int action;
+    private String raw;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,13 +48,13 @@ public class DatabaseActivity extends ListActivity {
         } catch(SQLException e){
             Log.e(DatabaseActivity.class.getName(), "Failed to open SQLite database: " + e.toString());
         }
+        activity = this;
+        action = this.getIntent().getExtras().getInt(KEY_ACTION);
+        raw = this.getIntent().getExtras().getString(KEY_SEARCH);
 
-        List<ValveModel> valves = database.getAllValves();
-
-       // ArrayAdapter<ValveModel> adapter = new ArrayAdapter<ValveModel>(this, android.R.layout.simple_expandable_list_item_1, valves);
-        DatabaseAdapter adapter = new DatabaseAdapter(this, valves, database);
+        // ArrayAdapter<ValveModel> adapter = new ArrayAdapter<ValveModel>(this, android.R.layout.simple_expandable_list_item_1, valves);
+        DatabaseAdapter adapter = new DatabaseAdapter(this, getData(), database);
         setListAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,6 +63,27 @@ public class DatabaseActivity extends ListActivity {
                 adapter.inflateItem(position, view);
             }
         });
+    }
+
+    private List<ValveModel> getData(){
+        List<ValveModel> valves;
+        switch(action){
+            case VAL_ALL:
+                valves = database.getAllValves();
+                break;
+            case VAL_AREA:
+                valves = database.getValvesByArea(raw);
+                break;
+            case VAL_SEARCH:
+                Log.e("DatabaseActivity","String raw before search is:\n\t" + raw);
+                valves = database.getValvesByString(raw);
+                Log.e("DatabaseActivity","String raw after search is:\n\t" + raw);
+                break;
+            default:
+                valves = new ArrayList<ValveModel>();
+                break;
+        }
+        return valves;
     }
 
     public void onClick(View view){
@@ -70,14 +100,13 @@ public class DatabaseActivity extends ListActivity {
                 */
 
                 DialogFragment addDialog = new AddInfoDialog();
-                Activity activity = (Activity) context;
                 FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-                Fragment prev = activity.getFragmentManager().findFragmentByTag("awwa");
+                Fragment prev = activity.getFragmentManager().findFragmentByTag("addInfo");
                 if(prev != null){
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                addDialog.show(ft,"awwa");
+                addDialog.show(ft,"addInfo");
                 //break;
 
         }
@@ -88,6 +117,9 @@ public class DatabaseActivity extends ListActivity {
     @Override
     protected void onResume(){
         database.open();
+        DatabaseAdapter adapter = (DatabaseAdapter)getListAdapter();
+        adapter.clear();
+        adapter.addAll(getData());
         super.onResume();
     }
 

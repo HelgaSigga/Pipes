@@ -37,5 +37,22 @@
     <string name="Location">Staðsetning</string>
     <string name="Source">Brunnur</string>
     <string name="Comment">Athugasemd</string>
+    <string name="title_activity_info_choice">InfoChoice</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_area">Area</string>
+    <string name="title_activity_address">Address</string>
+
+    <string-array name="Areas">
+        <item>Svæði 1</item>
+        <item>Svæði 2</item>
+        <item>Svæði 3</item>
+        <item>Svæði 4</item>
+        <item>Svæði 5</item>
+        <item>Svæði 6</item>
+        <item>Svæði 7</item>
+        <item>Svæði 8</item>
+        <item>Svæði 9</item>
+    </string-array>
 
 </resources>

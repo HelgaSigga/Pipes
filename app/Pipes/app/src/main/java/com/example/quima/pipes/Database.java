@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,7 +21,6 @@ public class Database{
     public Database(Context context){
         this.context = context;
         helpMe = new SQLiteHelper(context);
-
     }
 
     public void open() throws SQLException {
@@ -48,6 +48,18 @@ public class Database{
 
     public void deleteValveTypeTable(ValveTypeModel type){
         ValveTypeTable.deleteType(database, type);
+    }
+
+    public List<ValveModel> getValvesByArea(String area){
+        return ValveTable.getValvesByArea(database, area);
+    }
+
+    public List<ValveModel> getValvesByString(String raw){
+        return ValveTable.getValvesByString(database, raw);
+    }
+
+    public ArrayList<String> getAreas(){
+        return ValveTable.getAreas(database);
     }
 
     public ValveModel createValve(String type, String area, String number, String location, String source, String comment){

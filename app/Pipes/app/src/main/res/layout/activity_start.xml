@@ -29,8 +29,7 @@
         android:id="@+id/info"
         android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/emergency_text"
-        android:layout_alignStart="@+id/emergency_text" />
+        android:layout_alignLeft="@+id/emergency_text"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -17,6 +17,13 @@
 
     <uses-permission android:name="com.example.quima.pipes.gcm.permission.C2D_MESSAGE" />
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -69,6 +76,19 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".InfoChoice"
+            android:label="@string/title_activity_info_choice" >
+        </activity>
+        <activity
+            android:name=".Area"
+            android:label="@string/title_activity_area" >
+        </activity>
+        <activity
+            android:name=".Address"
+            android:label="@string/title_activity_address" >
+        </activity>
     </application>
 
 </manifest>

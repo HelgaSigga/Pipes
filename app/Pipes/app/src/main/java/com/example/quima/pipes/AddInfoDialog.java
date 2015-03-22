@@ -6,13 +6,16 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 /**
  * Created by Quima on 25/02/2015.
  */
-public class AddInfoDialog extends DialogFragment {
+public class AddInfoDialog extends DialogFragment implements DialogInterface.OnClickListener{
 
+    AlertDialog alertDialog;
     EditText type;
     EditText area;
     EditText number;
@@ -29,30 +32,7 @@ public class AddInfoDialog extends DialogFragment {
 
         buildMe.setView(inflateMe.inflate(R.layout.edit_dialog, null))
 
-                .setPositiveButton(R.string.addDBactivity, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface d, int i) {
-                                //add what is in the text fields to the database
-                               /*
-                                type = (EditText)findViewById(R.id.Type);
-                                area = (EditText)findViewById(R.id.Area);
-                                number = (EditText)findViewById(R.id.Number);
-                                location = (EditText)findViewById(R.id.Location);
-                                source = (EditText)findViewById(R.id.Source);
-                                comment = (EditText)findViewById(R.id.Comment);
-
-                                String Type = type.toString();
-                                String Area = area.toString();
-                                String Number = number.toString();
-                                String Location = location.toString();
-                                String Source = source.toString();
-                                String Comment = comment.toString();
-
-                                Database.createValve(Type, Area, Number, Location, Source, Comment);
-                                */
-                            }
-                        }
-                )
+                .setPositiveButton(R.string.addDBactivity, this)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface d, int i) {
@@ -60,7 +40,46 @@ public class AddInfoDialog extends DialogFragment {
                     }
                 });
 
-        return buildMe.create();
+        alertDialog = buildMe.create();
+        return alertDialog;
 
+    }
+
+    /*@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.edit_dialog, container);
+        type = (EditText) v.findViewById(R.id.editType);
+        area = (EditText) v.findViewById(R.id.editArea);
+        number = (EditText) v.findViewById(R.id.editNumber);
+        location = (EditText) v.findViewById(R.id.editLocation);
+        source = (EditText) v.findViewById(R.id.editSource);
+        comment = (EditText) v.findViewById(R.id.editComment);
+        return v;
+    }*/
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+        type = (EditText) alertDialog.findViewById(R.id.editType);
+        area = (EditText) alertDialog.findViewById(R.id.editArea);
+        number = (EditText) alertDialog.findViewById(R.id.editNumber);
+        location = (EditText) alertDialog.findViewById(R.id.editLocation);
+        source = (EditText) alertDialog.findViewById(R.id.editSource);
+        comment = (EditText) alertDialog.findViewById(R.id.editComment);
+
+        String Type = type.getText().toString();
+        String Area = area.getText().toString();
+        String Number = number.getText().toString();
+        String Location = location.getText().toString();
+        String Source = source.getText().toString();
+        String Comment = comment.getText().toString();
+
+        Database database = new Database(getActivity().getApplicationContext());
+        if (database != null) {
+            database.open();
+            database.createValve(Type, Area, Number, Location, Source, Comment);
+            database.close();
+        }
     }
 }
