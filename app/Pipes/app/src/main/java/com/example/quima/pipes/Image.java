@@ -31,6 +31,7 @@ public class Image {
 
         imagePartPosX = new float[gridSize][gridSize];
         imagePartPosY = new float[gridSize][gridSize];
+
         for (int i = 0 ; i < gridSize ; i++ ){
             for (int j = 0 ; j < gridSize ; j++ ){
                 imagePartPosX[j][i] = this.width*i;
@@ -52,14 +53,24 @@ public class Image {
     }
 
     public void zoomInn(){
-        if (scale >= 0.6f || scale <= 3f){
-            scale = scale + 0.1f;
+        if (0.6f > scale){
+            scale = 0.6f;
+        }else if (scale > 2.0f){
+            scale = 2.0f;
+        }else {
+            scale = scale + 0.01f;
+
         }
     }
 
     public void zoomOut(){
-        if (scale >= 0.6f || scale <= 3f){
-            scale = scale - 0.1f;
+        if (0.6f > scale){
+            scale = 0.6f;
+        }else if (scale > 2.0f){
+            scale = 2.0f;
+        }else {
+            scale = scale - 0.01f;
+
         }
     }
 
@@ -83,7 +94,8 @@ public class Image {
         row = imagePosY/(-this.height*scale);
         validRow = (int)row;
         validCol = (int)col;
-        Log.d("pipes", validRow+"row col "+validCol);
+        //Log.d("pipes", imagePosX+" "+imagePosY);
+        // Moving upp or down
         if(validRow != oldRow) {
             if(bmp[validRow][validCol] == null){
                 bmp[validRow+2][validCol] = null;
@@ -103,6 +115,7 @@ public class Image {
             }
             oldRow = validRow;
         }
+        // Moving lef or right
         if(validCol != oldCol) {
             if(bmp[validRow][validCol] == null){
                 bmp[validRow][validCol+2] = null;

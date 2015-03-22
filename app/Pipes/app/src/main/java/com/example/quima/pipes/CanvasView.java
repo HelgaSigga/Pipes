@@ -72,45 +72,6 @@ public class CanvasView extends View {
         }
     }
 
-    public void loadImage(int row,int col){
-        switch(row){
-            case 0:
-                switch(col){
-                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_01);break;
-                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_02);break;
-                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_03);break;
-                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_04);break;
-                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                }break;
-            case 1:
-                switch(col){
-                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_13);break;
-                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_14);break;
-                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_15);break;
-                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_16);break;
-                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                }break;
-            case 2:
-                switch(col){
-                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_25);break;
-                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_26);break;
-                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_27);break;
-                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_28);break;
-                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                }break;
-            case 3:
-                switch(col){
-                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_37);break;
-                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_38);break;
-                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_39);break;
-                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_40);break;
-                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                }break;
-            default:
-                bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        }
-    }
-
     private float getDistance(float x1, float y1, float x2, float y2){
         float distx, disty;
         distx = x1 - x2;
@@ -128,11 +89,13 @@ public class CanvasView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getActionMasked();
         boolean draw = Map.getDraw();
         boolean clear = Map.getClear();
 
-        switch (event.getAction()) {
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
+                Log.d("pipes", image.getPosX()+" "+image.getPosY());
                 touchOneStatus = true;
                 oldPosX = event.getX();
                 oldPosY = event.getY();
@@ -140,34 +103,41 @@ public class CanvasView extends View {
                     mPath.reset();
                 }
                 if(draw) {
-                    mPath.moveTo(oldPosX-image.getPosX(), oldPosY-image.getPosY());
+                    mPath.moveTo((oldPosX-image.getPosX())/image.getScale(), (oldPosY-image.getPosY())/image.getScale());
                 }
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.d("pipes","ACTION_POINTER_DOWN");
                 touchTwoStatus = true;
-                distOld = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
+                distOld = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
+                break;
+
+            case MotionEvent.ACTION_POINTER_2_DOWN:
+                touchTwoStatus = true;
+                distOld = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 if(touchOneStatus && touchTwoStatus){
-                    distCurrent = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
+                    distCurrent = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
                     if (distOld <= distCurrent){
                         image.zoomInn();
                     }else {
                         image.zoomOut();
                     }
-                }else {
+                    distOld = distCurrent;
+                }else if (touchOneStatus) {
                     posX = event.getX();
                     posY = event.getY();
                     if(draw){
-                        mPath.lineTo(posX-image.getPosX(),posY-image.getPosY());
+                        mPath.lineTo((posX-image.getPosX())/image.getScale(),(posY-image.getPosY())/image.getScale());
                     }else {
                         image.moveImage(oldPosX - posX,oldPosY - posY);
                     }
                     oldPosX = posX;
                     oldPosY = posY;
+                }else{
+                    break;
                 }
                 invalidate();
                 break;
@@ -177,10 +147,67 @@ public class CanvasView extends View {
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
-                Log.d("pipes","ACTION_POINTER_UP");
                 touchTwoStatus = false;
+                touchOneStatus = false;
+                break;
+
+            case MotionEvent.ACTION_POINTER_2_UP:
+                touchTwoStatus = false;
+                touchOneStatus = false;
                 break;
         }
         return true;
+    }
+
+    public void loadImage(int row,int col){
+        switch(row){
+            case 0:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_01);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_02);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_03);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_04);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_05);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            case 1:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_13);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_14);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_15);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_16);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_17);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            case 2:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_25);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_26);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_27);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_28);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_29);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            case 3:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_37);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_38);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_39);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_40);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_41);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            case 4:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_49);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_50);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_51);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_52);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_53);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            default:
+                bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        }
     }
 }
