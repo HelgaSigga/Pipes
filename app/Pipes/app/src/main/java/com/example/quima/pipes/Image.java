@@ -95,6 +95,7 @@ public class Image {
         validRow = (int)row;
         validCol = (int)col;
         //Log.d("pipes", imagePosX+" "+imagePosY);
+        // Moving upp or down
         if(validRow != oldRow) {
             if(bmp[validRow][validCol] == null){
                 bmp[validRow+2][validCol] = null;
@@ -114,6 +115,7 @@ public class Image {
             }
             oldRow = validRow;
         }
+        // Moving lef or right
         if(validCol != oldCol) {
             if(bmp[validRow][validCol] == null){
                 bmp[validRow][validCol+2] = null;

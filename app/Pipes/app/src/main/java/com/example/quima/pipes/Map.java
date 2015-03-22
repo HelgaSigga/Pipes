@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
@@ -24,7 +27,7 @@ public class Map extends Activity{
     static boolean draw = false;
     static boolean clear = false;
 
-    private Bitmap bmp;
+    public Bitmap bitmap;
 
     /** Called when the activity is first created. */
     @Override
@@ -60,6 +63,7 @@ public class Map extends Activity{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         switch(item.getItemId()){
             case R.id.paint:
                 draw = true;
@@ -69,7 +73,7 @@ public class Map extends Activity{
                 draw = false;
                 return true;
             case R.id.save:
-                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_03);
+                bitmap = captureScreen();
                 saveBmp();
                 return true;
             case R.id.clear:
@@ -78,6 +82,13 @@ public class Map extends Activity{
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Bitmap captureScreen()
+    {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
     }
 
     public void saveBmp(){
@@ -93,15 +104,14 @@ public class Map extends Activity{
         if (file.exists ()) file.delete ();
         try {
             FileOutputStream out = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sendBroadcast(new Intent(
-                Intent.ACTION_MEDIA_MOUNTED,
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
                 Uri.parse("file://" + Environment.getExternalStorageDirectory())));
     }
 

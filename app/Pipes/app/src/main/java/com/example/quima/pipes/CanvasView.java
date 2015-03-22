@@ -159,11 +159,6 @@ public class CanvasView extends View {
         return true;
     }
 
-    public Bitmap screenShot(){
-        Bitmap screen = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_01);
-        return screen;
-    }
-
     public void loadImage(int row,int col){
         switch(row){
             case 0:
@@ -172,6 +167,7 @@ public class CanvasView extends View {
                     case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_02);break;
                     case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_03);break;
                     case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_04);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_05);break;
                     default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
                 }break;
             case 1:
@@ -180,6 +176,7 @@ public class CanvasView extends View {
                     case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_14);break;
                     case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_15);break;
                     case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_16);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_17);break;
                     default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
                 }break;
             case 2:
@@ -188,6 +185,7 @@ public class CanvasView extends View {
                     case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_26);break;
                     case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_27);break;
                     case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_28);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_29);break;
                     default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
                 }break;
             case 3:
@@ -196,6 +194,16 @@ public class CanvasView extends View {
                     case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_38);break;
                     case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_39);break;
                     case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_40);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_41);break;
+                    default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                }break;
+            case 4:
+                switch(col){
+                    case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_49);break;
+                    case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_50);break;
+                    case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_51);break;
+                    case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_52);break;
+                    case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_53);break;
                     default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
                 }break;
             default:
