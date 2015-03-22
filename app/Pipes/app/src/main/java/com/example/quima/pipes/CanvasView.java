@@ -72,6 +72,98 @@ public class CanvasView extends View {
         }
     }
 
+    private float getDistance(float x1, float y1, float x2, float y2){
+        float distx, disty;
+        distx = x1 - x2;
+        disty = y1 - y2;
+        return FloatMath.sqrt(distx * distx + disty * disty);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if(!mapSelected){selectMap();}
+        canvas.drawColor(Color.GRAY);
+        image.Draw(canvas);
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getActionMasked();
+        boolean draw = Map.getDraw();
+        boolean clear = Map.getClear();
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                Log.d("pipes", image.getPosX()+" "+image.getPosY());
+                touchOneStatus = true;
+                oldPosX = event.getX();
+                oldPosY = event.getY();
+                if(clear){
+                    mPath.reset();
+                }
+                if(draw) {
+                    mPath.moveTo((oldPosX-image.getPosX())/image.getScale(), (oldPosY-image.getPosY())/image.getScale());
+                }
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                touchTwoStatus = true;
+                distOld = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
+                break;
+
+            case MotionEvent.ACTION_POINTER_2_DOWN:
+                touchTwoStatus = true;
+                distOld = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if(touchOneStatus && touchTwoStatus){
+                    distCurrent = getDistance(event.getX(0),event.getY(0),event.getX(1),event.getY(1));
+                    if (distOld <= distCurrent){
+                        image.zoomInn();
+                    }else {
+                        image.zoomOut();
+                    }
+                    distOld = distCurrent;
+                }else if (touchOneStatus) {
+                    posX = event.getX();
+                    posY = event.getY();
+                    if(draw){
+                        mPath.lineTo((posX-image.getPosX())/image.getScale(),(posY-image.getPosY())/image.getScale());
+                    }else {
+                        image.moveImage(oldPosX - posX,oldPosY - posY);
+                    }
+                    oldPosX = posX;
+                    oldPosY = posY;
+                }else{
+                    break;
+                }
+                invalidate();
+                break;
+
+            case MotionEvent.ACTION_UP:
+                touchOneStatus = false;
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                touchTwoStatus = false;
+                touchOneStatus = false;
+                break;
+
+            case MotionEvent.ACTION_POINTER_2_UP:
+                touchTwoStatus = false;
+                touchOneStatus = false;
+                break;
+        }
+        return true;
+    }
+
+    public Bitmap screenShot(){
+        Bitmap screen = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_01);
+        return screen;
+    }
+
     public void loadImage(int row,int col){
         switch(row){
             case 0:
@@ -109,78 +201,5 @@ public class CanvasView extends View {
             default:
                 bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         }
-    }
-
-    private float getDistance(float x1, float y1, float x2, float y2){
-        float distx, disty;
-        distx = x1 - x2;
-        disty = y1 - y2;
-        return FloatMath.sqrt(distx * distx + disty * disty);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        if(!mapSelected){selectMap();}
-        canvas.drawColor(Color.GRAY);
-        image.Draw(canvas);
-        canvas.drawPath(mPath, mPaint);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        boolean draw = Map.getDraw();
-        boolean clear = Map.getClear();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                touchOneStatus = true;
-                oldPosX = event.getX();
-                oldPosY = event.getY();
-                if(clear){
-                    mPath.reset();
-                }
-                if(draw) {
-                    mPath.moveTo(oldPosX-image.getPosX(), oldPosY-image.getPosY());
-                }
-                break;
-
-            case MotionEvent.ACTION_POINTER_DOWN:
-                Log.d("pipes","ACTION_POINTER_DOWN");
-                touchTwoStatus = true;
-                distOld = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-                if(touchOneStatus && touchTwoStatus){
-                    distCurrent = getDistance(event.getX(0),event.getX(1),event.getY(0),event.getY(1));
-                    if (distOld <= distCurrent){
-                        image.zoomInn();
-                    }else {
-                        image.zoomOut();
-                    }
-                }else {
-                    posX = event.getX();
-                    posY = event.getY();
-                    if(draw){
-                        mPath.lineTo(posX-image.getPosX(),posY-image.getPosY());
-                    }else {
-                        image.moveImage(oldPosX - posX,oldPosY - posY);
-                    }
-                    oldPosX = posX;
-                    oldPosY = posY;
-                }
-                invalidate();
-                break;
-
-            case MotionEvent.ACTION_UP:
-                touchOneStatus = false;
-                break;
-
-            case MotionEvent.ACTION_POINTER_UP:
-                Log.d("pipes","ACTION_POINTER_UP");
-                touchTwoStatus = false;
-                break;
-        }
-        return true;
     }
 }
