@@ -33,7 +33,7 @@ public class ValveTable {
     public static final String Source = "Source";
     public static final String Comment = "Comment";
 
-
+    private static String orderBy = Area + ", " + Number + ", " + Type + " ASC";
     private static String[] allColumns = {Id, Type, Area, Number, Location, Source, Comment};
 
 
@@ -135,7 +135,7 @@ public class ValveTable {
 
         List<ValveModel> valves = new ArrayList<ValveModel>();
 
-        Cursor cursor = database.query(tableName, allColumns, null, null, null, null, null);
+        Cursor cursor = database.query(tableName, allColumns, null, null, null, null, orderBy);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
@@ -155,7 +155,7 @@ public class ValveTable {
         raw = raw.replace(" ", "%").replace(".", "%" ).replace(",", "%" ).replace(";", "%" ).replace(":", "%" );
         raw = raw.replaceAll("%+","%");
         String select = createSearchString(raw);
-        Cursor cursor = database.query(tableName, allColumns, select, null, null, null, null);
+        Cursor cursor = database.query(tableName, allColumns, select, null, null, null, orderBy);
         if(cursor.getCount() == 0){
             String[] a = raw.split("%");
             int max = 0;
@@ -169,7 +169,7 @@ public class ValveTable {
             }
             if(max>0){
                 raw = a[maxIndex];
-                cursor = database.query(tableName, allColumns, createSearchString(raw), null, null, null, null);
+                cursor = database.query(tableName, allColumns, createSearchString(raw), null, null, null, orderBy);
             }
         }
         /* select should be based on raw, if cursor is empty then refine select and try again. */
@@ -194,7 +194,7 @@ public class ValveTable {
     public static List<ValveModel> getValvesByArea(SQLiteDatabase database, String area){
         List<ValveModel> valves = new ArrayList<ValveModel>();
 
-        Cursor cursor = database.query(tableName, allColumns, Area + "=" + area, null, null, null, null);
+        Cursor cursor = database.query(tableName, allColumns, Area + "=" + area, null, null, null, orderBy);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
