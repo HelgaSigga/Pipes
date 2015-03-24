@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 .gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
 /build
+=======
+# Created by .gitignore support plugin (hsz.mobi)
+/.idea/
+/out/
+>>>>>>> 1a8978135ec1e8a998bbd78532f8f620b9e88bda

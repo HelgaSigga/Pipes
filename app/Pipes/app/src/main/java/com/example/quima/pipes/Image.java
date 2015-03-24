@@ -1,0 +1,177 @@
+package com.example.quima.pipes;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.util.Log;
+
+/**
+ * Created by Benedikt Sævarss on 27.2.2015.
+ */
+public class Image {
+    private float imagePosX = 0,imagePosY = 0;
+    private float scale = 1;
+    private float imagePartPosX[][];
+    private float imagePartPosY[][];
+    private int oldRow, oldCol;
+    private int validRow, validCol;
+    private CanvasView canvasView;
+    private Bitmap bmp[][];
+    private String type;
+    private int imgWidth,imgHeight;
+    private int canWidth,canHeight;
+    private int gridSize = 13;
+
+    public Image(CanvasView canvasView, Bitmap[][] bmp, String type){
+        this.canvasView = canvasView;
+        this.bmp = bmp;
+        this.type = type;
+        this.imgWidth = bmp[0][0].getWidth();
+        this.imgHeight = bmp[0][0].getHeight();
+        this.canWidth = canvasView.getWidth();
+        this.canHeight = canvasView.getHeight();
+
+        imagePartPosX = new float[gridSize][gridSize];
+        imagePartPosY = new float[gridSize][gridSize];
+
+        for (int i = 0 ; i < gridSize ; i++ ){
+            for (int j = 0 ; j < gridSize ; j++ ){
+                imagePartPosX[j][i] = this.imgWidth*i-imgWidth/2;
+                imagePartPosY[j][i] = this.imgHeight*j-imgHeight/2;
+            }
+        }
+    }
+
+    public float getPosX(){
+        return imagePosX;
+    }
+
+    public float getPosY(){
+        return imagePosY;
+    }
+
+    public float getCanCentX(){
+        return canWidth/2;
+    }
+
+    public float getCanCentY(){
+        return canHeight/2;
+    }
+
+    public float getScale(){
+        return scale;
+    }
+
+    public void zoomInn(){
+        scale = scale / 0.95f;
+        if (0.5f > scale){
+            scale = 0.5f;
+        }else if (scale > 2.0f){
+            scale = 2.0f;
+        }else {
+            imagePosX = imagePosX / 0.95f;
+            imagePosY = imagePosY / 0.95f;
+            moveImage(0,0);
+        }
+    }
+
+    public void zoomOut(){
+        scale = scale * 0.95f;
+        if (0.5f > scale){
+            scale = 0.5f;
+        }else if (scale > 2.0f){
+            scale = 2.0f;
+        }else {
+            imagePosX = imagePosX * 0.95f;
+            imagePosY = imagePosY * 0.95f;
+            moveImage(0,0);
+        }
+    }
+
+    public void moveImage(float cx, float cy){
+        imagePosX = imagePosX - cx;
+        imagePosY = imagePosY - cy;
+
+        if(scale >= 1 && imagePosX > (scale-1)*this.canWidth/2){
+            imagePosX = (scale-1)*this.canWidth/2;
+        }
+        if(scale < 1 && imagePosX > -scale*this.canWidth/2){
+            imagePosX = -scale * this.canWidth/2;
+        }
+        if(scale >= 1 && imagePosY > (scale-1)*this.canHeight/2){
+            imagePosY = (scale-1)*this.canHeight/2;
+        }
+        if(scale < 1 && imagePosY > -scale*this.canHeight/2){
+            imagePosY = -scale * this.canHeight/2;
+        }
+    }
+
+    public void update(){
+        float row;
+        float col;
+        col = (imagePosX+(canWidth/2)*scale)/(-this.imgWidth*scale);
+        row = (imagePosY+(canHeight/2)*scale)/(-this.imgHeight*scale);
+        validRow = (int)row;
+        validCol = (int)col;
+        Log.d("pipes", imagePosX+" "+imagePosY+"-"+col+"-"+row+"-"+scale);
+        // Moving upp or down
+        if(validRow != oldRow) {
+            if(bmp[validRow][validCol] == null){
+                bmp[validRow+3][validCol] = null;
+                canvasView.loadImage(validRow,validCol);
+                bmp[validRow+3][validCol+1] = null;
+                canvasView.loadImage(validRow,validCol+1);
+                bmp[validRow+3][validCol+2] = null;
+                canvasView.loadImage(validRow,validCol+2);
+            }
+            else if(bmp[validRow+2][validCol] == null){
+                bmp[validRow-1][validCol] = null;
+                canvasView.loadImage(validRow+2,validCol);
+                bmp[validRow-1][validCol+1] = null;
+                canvasView.loadImage(validRow+2,validCol+1);
+                bmp[validRow - 1][validCol + 2] = null;
+                canvasView.loadImage(validRow + 2, validCol + 2);
+            }
+            oldRow = validRow;
+        }
+        // Moving left or right
+        if(validCol != oldCol) {
+            if(bmp[validRow][validCol] == null){
+                bmp[validRow][validCol+3] = null;
+                canvasView.loadImage(validRow,validCol);
+                bmp[validRow+1][validCol+3] = null;
+                canvasView.loadImage(validRow+1,validCol);
+                bmp[validRow+2][validCol+3] = null;
+                canvasView.loadImage(validRow+2,validCol);
+            }
+            else if(bmp[validRow][validCol+2] == null){
+                bmp[validRow][validCol-1] = null;
+                canvasView.loadImage(validRow,validCol+2);
+                bmp[validRow+1][validCol-1] = null;
+                canvasView.loadImage(validRow+1,validCol+2);
+                bmp[validRow+2][validCol-1] = null;
+                canvasView.loadImage(validRow+2,validCol+2);
+            }
+            oldCol = validCol;
+        }
+    }
+
+    public void Draw(Canvas canvas){
+        update();
+        canvas.translate(imagePosX + canWidth/2, imagePosY + canHeight/2);
+        canvas.scale(scale , scale);
+
+        if(this.imgWidth < 1000 && this.imgHeight < 1000) {
+            canvas.drawBitmap(bmp[validRow][validCol], imagePartPosX[validRow][validCol], imagePartPosY[validRow][validCol], null);
+            canvas.drawBitmap(bmp[validRow][validCol+1], imagePartPosX[validRow][validCol+1], imagePartPosY[validRow][validCol+1], null);
+            canvas.drawBitmap(bmp[validRow][validCol+2], imagePartPosX[validRow][validCol+2], imagePartPosY[validRow][validCol+2], null);
+
+            canvas.drawBitmap(bmp[validRow+1][validCol], imagePartPosX[validRow+1][validCol], imagePartPosY[validRow+1][validCol], null);
+            canvas.drawBitmap(bmp[validRow+1][validCol+1], imagePartPosX[validRow+1][validCol+1], imagePartPosY[validRow+1][validCol+1], null);
+            canvas.drawBitmap(bmp[validRow+1][validCol+2], imagePartPosX[validRow+1][validCol+2], imagePartPosY[validRow+1][validCol+2], null);
+
+            canvas.drawBitmap(bmp[validRow+2][validCol], imagePartPosX[validRow+2][validCol], imagePartPosY[validRow+2][validCol], null);
+            canvas.drawBitmap(bmp[validRow+2][validCol+1], imagePartPosX[validRow+2][validCol+1], imagePartPosY[validRow+2][validCol+1], null);
+            canvas.drawBitmap(bmp[validRow+2][validCol+2], imagePartPosX[validRow+2][validCol+2], imagePartPosY[validRow+2][validCol+2], null);
+        }
+    }
+}
