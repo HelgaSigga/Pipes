@@ -71,7 +71,7 @@ public class Start extends Activity implements OnClickListener{
                 startActivity(Address);
                 return true;
             case R.id.showData:
-                Intent showData = new Intent(this, DatabaseActivity.class);
+                Intent showData = new Intent(this, InfoChoice.class);
                 startActivity(showData);
                 return true;
         }
