@@ -65,8 +65,8 @@ public class CanvasView extends View {
     public void initializeMapParts(String type){
         String x1 = type;
         bmp = new Bitmap[13][10];
-        for (int i = 0 ; i < 4 ; i++ ){     //row
-            for (int j = 0 ; j < 4 ; j++ ){ //col
+        for (int i = 0 ; i < 3 ; i++ ){     //row
+            for (int j = 0 ; j < 3 ; j++ ){ //col
                 loadImage(i,j);
             }
         }
