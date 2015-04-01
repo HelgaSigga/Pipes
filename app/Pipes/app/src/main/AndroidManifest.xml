@@ -85,10 +85,10 @@
             android:name=".Area"
             android:label="@string/title_activity_area" >
         </activity>
-        <activity
+    <!--    <activity
             android:name=".Address"
             android:label="@string/title_activity_address" >
-        </activity>
+        </activity>-->
     </application>
 
 </manifest>

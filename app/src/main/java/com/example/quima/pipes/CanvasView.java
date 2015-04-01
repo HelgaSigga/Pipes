@@ -65,8 +65,8 @@ public class CanvasView extends View {
     public void initializeMapParts(String type){
         String x1 = type;
         bmp = new Bitmap[13][10];
-        for (int i = 0 ; i < 2 ; i++ ){     //row
-            for (int j = 0 ; j < 2 ; j++ ){ //col
+        for (int i = 0 ; i < 3 ; i++ ){     //row
+            for (int j = 0 ; j < 3 ; j++ ){ //col
                 loadImage(i,j);
             }
         }
@@ -82,7 +82,7 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         if(!mapSelected){selectMap();}
-        canvas.drawColor(Color.GRAY);
+        canvas.drawColor(Color.BLUE);
         image.Draw(canvas);
         canvas.drawPath(mPath, mPaint);
     }
@@ -103,7 +103,8 @@ public class CanvasView extends View {
                     mPath.reset();
                 }
                 if(draw) {
-                    mPath.moveTo((oldPosX-image.getPosX())/image.getScale(), (oldPosY-image.getPosY())/image.getScale());
+                    mPath.moveTo((oldPosX-image.getPosX())/image.getScale()-(image.getCanCentX()/image.getScale()),
+                            (oldPosY-image.getPosY())/image.getScale()-(image.getCanCentY()/image.getScale()));
                 }
                 break;
 
@@ -130,7 +131,8 @@ public class CanvasView extends View {
                     posX = event.getX();
                     posY = event.getY();
                     if(draw){
-                        mPath.lineTo((posX-image.getPosX())/image.getScale(),(posY-image.getPosY())/image.getScale());
+                        mPath.lineTo((posX-image.getPosX())/image.getScale()-(image.getCanCentX()/image.getScale()),
+                                (posY-image.getPosY())/image.getScale()-(image.getCanCentY())/image.getScale());
                     }else {
                         image.moveImage(oldPosX - posX,oldPosY - posY);
                     }

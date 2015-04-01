@@ -97,6 +97,7 @@ public class Map extends Activity{
         String Year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
         String Hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
         String Minute = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+
         File mapDir = new File(sdPath + "/Map_images");
         mapDir.mkdirs();
         String imageName = Day+"-"+Year+"--"+Hour+"-"+Minute+".jpg";
