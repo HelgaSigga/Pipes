@@ -54,7 +54,7 @@ public class CanvasView extends View {
 
     public void initializeMapParts(String type){
         String mapType = type;
-        bmp = new Bitmap[13][10];
+        bmp = new Bitmap[9][13];
         for (int i = 0 ; i < 3 ; i++ ){     //row
             for (int j = 0 ; j < 3 ; j++ ){ //col
                 loadImage(i,j,mapType);
@@ -173,6 +173,9 @@ public class CanvasView extends View {
                         case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_16);break;
                         case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_17);break;
                         case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_18);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_19);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_20);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_21);break;
                         default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
                     }break;
                 case 2:
@@ -183,6 +186,10 @@ public class CanvasView extends View {
                         case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_28);break;
                         case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_29);break;
                         case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_30);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_31);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_32);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_33);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_34);break;
                         default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
                     }break;
                 case 3:
@@ -193,6 +200,10 @@ public class CanvasView extends View {
                         case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_40);break;
                         case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_41);break;
                         case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_42);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_43);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_44);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_45);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_46);break;
                         default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
                     }break;
                 case 4:
@@ -203,6 +214,12 @@ public class CanvasView extends View {
                         case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_52);break;
                         case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_53);break;
                         case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_54);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_55);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_56);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_57);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_58);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_59);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_60);break;
                         default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
                     }break;
                 case 5:
@@ -212,6 +229,35 @@ public class CanvasView extends View {
                         case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_64);break;
                         case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_65);break;
                         case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_66);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_67);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_68);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_69);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_70);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_71);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_72);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
+                    }break;
+                case 6:
+                    switch(col){
+                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_76);break;
+                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_77);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_78);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_79);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_80);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_81);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_82);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_83);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_84);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
+                    }break;
+                case 7:
+                    switch(col){
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_91);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_92);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_93);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_94);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_95);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_96);break;
                         default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_white);
                     }break;
                 default:

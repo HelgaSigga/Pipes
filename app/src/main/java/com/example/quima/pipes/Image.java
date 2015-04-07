@@ -9,7 +9,7 @@ import android.util.Log;
  */
 public class Image {
     private float imagePosX = -500,imagePosY = -500;
-    private float scale = 0.5f;
+    private float scale = 1;
     private float imagePartPosX[][];
     private float imagePartPosY[][];
     private int oldRow, oldCol;
@@ -91,17 +91,17 @@ public class Image {
         imagePosX = imagePosX - cx;
         imagePosY = imagePosY - cy;
 
-        if(scale >= 1 && imagePosX > (scale-1)*this.canWidth/2){
+        if(imagePosX > (scale-1)*this.canWidth/2){
             imagePosX = (scale-1)*this.canWidth/2;
         }
-        if(scale < 1 && imagePosX > -scale*this.canWidth/2){
-            imagePosX = -scale * this.canWidth/2;
-        }
-        if(scale >= 1 && imagePosY > (scale-1)*this.canHeight/2){
+        if(imagePosY > (scale-1)*this.canHeight/2){
             imagePosY = (scale-1)*this.canHeight/2;
         }
-        if(scale < 1 && imagePosY > -scale*this.canHeight/2){
-            imagePosY = -scale * this.canHeight/2;
+        if(imagePosX < (this.imgWidth*-scale*11)-(scale-1)*this.canWidth/2){
+            imagePosX = (this.imgWidth*-scale*11)-(scale-1)*this.canWidth/2;
+        }
+        if(imagePosY < (this.imgHeight*-scale*7)-(scale-1)*this.canHeight/2){
+            imagePosY = (this.imgHeight*-scale*7)-(scale-1)*this.canHeight/2;
         }
     }
 
@@ -112,7 +112,7 @@ public class Image {
         row = (imagePosY+(canHeight/2)*scale)/(-this.imgHeight*scale);
         validRow = (int)row;
         validCol = (int)col;
-        Log.d("pipes", imagePosX+" "+imagePosY+"-"+col+"-"+row+"-"+scale);
+        //Log.d("pipes", imagePosX+" "+this.imgWidth*scale+"-"+col+"-"+row+"-"+scale);
         // Moving upp or down
         if(validRow != oldRow) {
             if(validRow < oldRow){
