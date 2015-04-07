@@ -8,8 +8,8 @@ import android.util.Log;
  * Created by Benedikt Sævarss on 27.2.2015.
  */
 public class Image {
-    private float imagePosX = 0,imagePosY = 0;
-    private float scale = 1;
+    private float imagePosX = -500,imagePosY = -500;
+    private float scale = 0.5f;
     private float imagePartPosX[][];
     private float imagePartPosY[][];
     private int oldRow, oldCol;
@@ -115,41 +115,41 @@ public class Image {
         Log.d("pipes", imagePosX+" "+imagePosY+"-"+col+"-"+row+"-"+scale);
         // Moving upp or down
         if(validRow != oldRow) {
-            if(bmp[validRow][validCol] == null){
+            if(validRow < oldRow){
                 bmp[validRow+3][validCol] = null;
-                canvasView.loadImage(validRow,validCol);
                 bmp[validRow+3][validCol+1] = null;
-                canvasView.loadImage(validRow,validCol+1);
                 bmp[validRow+3][validCol+2] = null;
-                canvasView.loadImage(validRow,validCol+2);
+                canvasView.loadImage(validRow,validCol,this.type);
+                canvasView.loadImage(validRow,validCol+1,this.type);
+                canvasView.loadImage(validRow,validCol+2,this.type);
             }
-            else if(bmp[validRow+2][validCol] == null){
+            else if(validRow > oldRow){
                 bmp[validRow-1][validCol] = null;
-                canvasView.loadImage(validRow+2,validCol);
                 bmp[validRow-1][validCol+1] = null;
-                canvasView.loadImage(validRow+2,validCol+1);
-                bmp[validRow - 1][validCol + 2] = null;
-                canvasView.loadImage(validRow + 2, validCol + 2);
+                bmp[validRow-1][validCol+2] = null;
+                canvasView.loadImage(validRow+2,validCol,this.type);
+                canvasView.loadImage(validRow+2,validCol+1,this.type);
+                canvasView.loadImage(validRow+2, validCol+2,this.type);
             }
             oldRow = validRow;
         }
         // Moving left or right
         if(validCol != oldCol) {
-            if(bmp[validRow][validCol] == null){
+            if(validCol < oldCol){
                 bmp[validRow][validCol+3] = null;
-                canvasView.loadImage(validRow,validCol);
                 bmp[validRow+1][validCol+3] = null;
-                canvasView.loadImage(validRow+1,validCol);
                 bmp[validRow+2][validCol+3] = null;
-                canvasView.loadImage(validRow+2,validCol);
+                canvasView.loadImage(validRow,validCol,this.type);
+                canvasView.loadImage(validRow+1,validCol,this.type);
+                canvasView.loadImage(validRow+2,validCol,this.type);
             }
-            else if(bmp[validRow][validCol+2] == null){
+            else if(validCol > oldCol){
                 bmp[validRow][validCol-1] = null;
-                canvasView.loadImage(validRow,validCol+2);
                 bmp[validRow+1][validCol-1] = null;
-                canvasView.loadImage(validRow+1,validCol+2);
                 bmp[validRow+2][validCol-1] = null;
-                canvasView.loadImage(validRow+2,validCol+2);
+                canvasView.loadImage(validRow,validCol+2,this.type);
+                canvasView.loadImage(validRow+1,validCol+2,this.type);
+                canvasView.loadImage(validRow+2,validCol+2,this.type);
             }
             oldCol = validCol;
         }
@@ -160,18 +160,16 @@ public class Image {
         canvas.translate(imagePosX + canWidth/2, imagePosY + canHeight/2);
         canvas.scale(scale , scale);
 
-        //if(this.imgWidth < 1000 && this.imgHeight < 1000) {
-            canvas.drawBitmap(bmp[validRow][validCol], imagePartPosX[validRow][validCol], imagePartPosY[validRow][validCol], null);
-            canvas.drawBitmap(bmp[validRow][validCol+1], imagePartPosX[validRow][validCol+1], imagePartPosY[validRow][validCol+1], null);
-            canvas.drawBitmap(bmp[validRow][validCol+2], imagePartPosX[validRow][validCol+2], imagePartPosY[validRow][validCol+2], null);
+        canvas.drawBitmap(bmp[validRow][validCol], imagePartPosX[validRow][validCol], imagePartPosY[validRow][validCol], null);
+        canvas.drawBitmap(bmp[validRow][validCol+1], imagePartPosX[validRow][validCol+1], imagePartPosY[validRow][validCol+1], null);
+        canvas.drawBitmap(bmp[validRow][validCol+2], imagePartPosX[validRow][validCol+2], imagePartPosY[validRow][validCol+2], null);
 
-            canvas.drawBitmap(bmp[validRow+1][validCol], imagePartPosX[validRow+1][validCol], imagePartPosY[validRow+1][validCol], null);
-            canvas.drawBitmap(bmp[validRow+1][validCol+1], imagePartPosX[validRow+1][validCol+1], imagePartPosY[validRow+1][validCol+1], null);
-            canvas.drawBitmap(bmp[validRow+1][validCol+2], imagePartPosX[validRow+1][validCol+2], imagePartPosY[validRow+1][validCol+2], null);
+        canvas.drawBitmap(bmp[validRow+1][validCol], imagePartPosX[validRow+1][validCol], imagePartPosY[validRow+1][validCol], null);
+        canvas.drawBitmap(bmp[validRow+1][validCol+1], imagePartPosX[validRow+1][validCol+1], imagePartPosY[validRow+1][validCol+1], null);
+        canvas.drawBitmap(bmp[validRow+1][validCol+2], imagePartPosX[validRow+1][validCol+2], imagePartPosY[validRow+1][validCol+2], null);
 
-            canvas.drawBitmap(bmp[validRow+2][validCol], imagePartPosX[validRow+2][validCol], imagePartPosY[validRow+2][validCol], null);
-            canvas.drawBitmap(bmp[validRow+2][validCol+1], imagePartPosX[validRow+2][validCol+1], imagePartPosY[validRow+2][validCol+1], null);
-            canvas.drawBitmap(bmp[validRow+2][validCol+2], imagePartPosX[validRow+2][validCol+2], imagePartPosY[validRow+2][validCol+2], null);
-        //}
+        canvas.drawBitmap(bmp[validRow+2][validCol], imagePartPosX[validRow+2][validCol], imagePartPosY[validRow+2][validCol], null);
+        canvas.drawBitmap(bmp[validRow+2][validCol+1], imagePartPosX[validRow+2][validCol+1], imagePartPosY[validRow+2][validCol+1], null);
+        canvas.drawBitmap(bmp[validRow+2][validCol+2], imagePartPosX[validRow+2][validCol+2], imagePartPosY[validRow+2][validCol+2], null);
     }
 }

@@ -75,6 +75,7 @@ public class Map extends Activity{
             case R.id.save:
                 bitmap = captureScreen();
                 saveBmp();
+                draw = false;
                 return true;
             case R.id.clear:
                 clear = true;
