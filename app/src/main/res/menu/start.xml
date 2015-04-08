@@ -7,7 +7,7 @@
         android:id="@+id/search_icon"
         android:icon="@drawable/ic_action_search"
         android:title="@string/database"
-        android:showAsAction="ifRoom">
+        android:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/findValve"
@@ -30,7 +30,7 @@
         android:id="@+id/map_icon"
         android:icon="@drawable/ic_action_map"
         android:title="@string/map"
-        android:showAsAction="ifRoom">
+        android:showAsAction="always">
         <menu>
             <item
                 android:id="@+id/hotWater"
@@ -47,5 +47,11 @@
                 android:title="@string/sewage"
                 />
         </menu>
+    </item>
+    <item
+        android:id="@+id/about_icon"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/about"
+        android:showAsAction="always">
     </item>
 </menu>

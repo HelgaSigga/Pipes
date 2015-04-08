@@ -10,6 +10,7 @@
     <string name="addDBactivity">Bæta í lista</string>
     <string name="changeDBactivity">Breyta línu</string>
     <string name="map">Kort</string>
+    <string name="about">Um pipes</string>
     <string name="database">Gagnagrunnur</string>
     <string name="data">Upplýsingar um loka</string>
     <string name="info">Vinsamlegast veljið þær upplýsingar sem þið viljið sjá</string>
@@ -17,6 +18,7 @@
     <string name="mapMotion">Hreyfa kort</string>
     <string name="save">Vista</string>
     <string name="clear">Hreinsa</string>
+    <string name="about_text">Útgáfa 1.0\n\n Höfundar: \n\n Benedikt Sævarsson \n\n Helga Sigríður Ívarsdóttir \n\n Katrín Elíasdóttir \n\n Kristrún Harpa Gunnarsdóttir</string>
 
     <string name="findValve">Leit eftir loka</string>
     <string name="findValveText">Veldu loka og það byrtast öll heimilisföng sem er tengd honum</string>
@@ -28,6 +30,7 @@
     <string name="sewage">Skolp</string>
 
     <string name="title_activity_map">Kort</string>
+    <string name="title_activity_about">Um Pipes</string>
     <string name="title_activity_data">Upplýsingar um loka</string>
     <string name="title_activity_database">Gagnagrunnur</string>
     <string name="cancel">Hætta við</string>

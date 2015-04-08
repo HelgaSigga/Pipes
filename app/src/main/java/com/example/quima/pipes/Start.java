@@ -74,6 +74,10 @@ public class Start extends Activity implements OnClickListener{
                 Intent showData = new Intent(this, DatabaseActivity.class);
                 startActivity(showData);
                 return true;
+            case R.id.about_icon:
+                Intent about = new Intent(this, AboutActivity.class);
+                startActivity(about);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
