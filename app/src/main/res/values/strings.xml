@@ -18,12 +18,13 @@
     <string name="mapMotion">Hreyfa kort</string>
     <string name="save">Vista</string>
     <string name="clear">Hreinsa</string>
+    <string name="search">Leita</string>
     <string name="about_text">Útgáfa 1.0\n\n Höfundar: \n\n Benedikt Sævarsson \n\n Helga Sigríður Ívarsdóttir \n\n Katrín Elíasdóttir \n\n Kristrún Harpa Gunnarsdóttir</string>
 
-    <string name="findValve">Leit eftir loka</string>
-    <string name="findValveText">Veldu loka og það byrtast öll heimilisföng sem er tengd honum</string>
-    <string name="findAddress">Leit eftir heimilisfangi</string>
-    <string name="findAddressText">Veldu heimilisfang og það kemur upp hvaða loki er tengdur því</string>
+    <string name="findValve">Velja svæði</string>
+    <string name="findValveText">Hér getur þú leitað eftir svæðum</string>
+    <string name="findAddress">Almenn leit</string>
+    <string name="findAddressText">Hér getur þú gert allmena leit</string>
     <string name="showData">Birta öll gögn</string>
     <string name="hotWater">Heitt vatn</string>
     <string name="coldWater">Kalt vatn</string>

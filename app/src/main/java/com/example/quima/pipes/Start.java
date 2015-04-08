@@ -62,7 +62,7 @@ public class Start extends Activity implements OnClickListener{
                 return true;
             case R.id.findValve:
                 Intent Valve = new Intent(this, Data.class);
-                Valve.putExtra("data", "V");
+                Valve.putExtra("data", "S");
                 startActivity(Valve);
                 return true;
             case R.id.findAddress:
@@ -71,8 +71,11 @@ public class Start extends Activity implements OnClickListener{
                 startActivity(Address);
                 return true;
             case R.id.showData:
-                Intent showData = new Intent(this, DatabaseActivity.class);
-                startActivity(showData);
+                Intent databaseActivity;
+                databaseActivity = new Intent(this, DatabaseActivity.class);
+                databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_ALL);
+                databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, "");
+                startActivity(databaseActivity);
                 return true;
             case R.id.about_icon:
                 Intent about = new Intent(this, AboutActivity.class);
@@ -81,11 +84,4 @@ public class Start extends Activity implements OnClickListener{
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void onButtonClick(View v){
-        startActivity(new Intent(getApplicationContext(), DatabaseActivity.class));
-
-    }
-
-
 }
