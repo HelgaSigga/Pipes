@@ -43,7 +43,7 @@ public class DatabaseAdapter extends ArrayAdapter<ValveModel>{
 
 
         Button edit = (Button) rowView.findViewById(R.id.rowDatabaseEditButton);
-        Button delete = (Button) rowView.findViewById(R.id.rowDatabaseDeleteButton);
+        //Button delete = (Button) rowView.findViewById(R.id.rowDatabaseDeleteButton);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,13 +60,13 @@ public class DatabaseAdapter extends ArrayAdapter<ValveModel>{
             }
         });
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        /*delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 database.deleteValveTable(valves.get(position));
                 remove(valves.get(position));
             }
-        });
+        });*/
 
         return rowView;
     }
@@ -94,7 +94,7 @@ public class DatabaseAdapter extends ArrayAdapter<ValveModel>{
         //ll.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
         Button edit = (Button) view.findViewById(R.id.rowDatabaseEditButton);
         edit.setVisibility(View.VISIBLE);
-        Button delete = (Button) view.findViewById(R.id.rowDatabaseDeleteButton);
-        delete.setVisibility(View.VISIBLE);
+        /*Button delete = (Button) view.findViewById(R.id.rowDatabaseDeleteButton);
+        delete.setVisibility(View.VISIBLE); */
     }
 }

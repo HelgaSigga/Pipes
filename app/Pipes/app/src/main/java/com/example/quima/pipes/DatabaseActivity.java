@@ -31,9 +31,12 @@ public class DatabaseActivity extends ListActivity {
     public static final int VAL_ALL = 0;
     public static final int VAL_AREA = 1;
     public static final int VAL_SEARCH = 2;
+    public static final int VAL_ADDRESS = 3;
+    public static final String KEY_CATEGORY = "query category";
 
     private int action;
     private String raw;
+    private int category;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,8 @@ public class DatabaseActivity extends ListActivity {
         activity = this;
         action = this.getIntent().getExtras().getInt(KEY_ACTION);
         raw = this.getIntent().getExtras().getString(KEY_SEARCH);
-
+        category = this.getIntent().getExtras().getInt(KEY_CATEGORY);
+        Log.e("DatabaseActivity: ", "The category is " + category);
         // ArrayAdapter<ValveModel> adapter = new ArrayAdapter<ValveModel>(this, android.R.layout.simple_expandable_list_item_1, valves);
         DatabaseAdapter adapter = new DatabaseAdapter(this, getData(), database);
         setListAdapter(adapter);
@@ -69,14 +73,14 @@ public class DatabaseActivity extends ListActivity {
         List<ValveModel> valves;
         switch(action){
             case VAL_ALL:
-                valves = database.getAllValves();
+                valves = database.getValvesByCategory(category);
                 break;
             case VAL_AREA:
-                valves = database.getValvesByArea(raw);
+                valves = database.getValvesByAreaAndCategory(raw, category);
                 break;
             case VAL_SEARCH:
                 Log.e("DatabaseActivity","String raw before search is:\n\t" + raw);
-                valves = database.getValvesByString(raw);
+                valves = database.getValvesByStringAndCategory(raw, category);
                 Log.e("DatabaseActivity","String raw after search is:\n\t" + raw);
                 break;
             default:

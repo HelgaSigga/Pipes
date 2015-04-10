@@ -62,13 +62,13 @@ public class ValveTable {
         values.put(Source, source);
         values.put(Comment, comment);
         long insertId = database.insert(tableName, null, values);
-        Log.e(TAG, "Content value as string:\n\t" + values.toString() + "\nID was " + insertId + ".");
+        //Log.e(TAG, "Content value as string:\n\t" + values.toString() + "\nID was " + insertId + ".");
         Cursor cursor = database.query(tableName, allColumns, Id + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         ValveModel newValveModel = cursorToValve(cursor);
         cursor.close();
 
-        Log.e(TAG, "Inserted as:\n\t" + newValveModel.toString());
+        //Log.e(TAG, "Inserted as:\n\t" + newValveModel.toString());
 
         return newValveModel;
     }
@@ -93,12 +93,12 @@ public class ValveTable {
 
     public static ValveModel createValveFromString(SQLiteDatabase database, String valve){
 
-        Log.e(TAG, "Read from file:\n\t" + valve);
+        //Log.e(TAG, "Read from file:\n\t" + valve);
 
         String[] valveArray = valve.split(",", 6);
         if(valveArray.length == 6) {
-            Log.e(TAG, "Creating valve:\n\t" + valveArray[0] + "  " + valveArray[1] + "-" + valveArray[2] + "\n\tLocation: " +
-                    valveArray[3] + "\n\tSource: " + valveArray[4] + "\n\tComment:" + valveArray[5]);
+            //Log.e(TAG, "Creating valve:\n\t" + valveArray[0] + "  " + valveArray[1] + "-" + valveArray[2] + "\n\tLocation: " +
+            //        valveArray[3] + "\n\tSource: " + valveArray[4] + "\n\tComment:" + valveArray[5]);
             return createValve(database, valveArray[0], valveArray[1], valveArray[2],
                     valveArray[3], valveArray[4], valveArray[5]);
         } else {
@@ -149,6 +149,83 @@ public class ValveTable {
 
     }
 
+    public static List<ValveModel> getValvesByCategory(SQLiteDatabase database, int category){
+        List<ValveModel> valves = new ArrayList<ValveModel>();
+        String select = createCategoryString(database, category);
+        if(select != null){
+            Log.e(TAG, select);
+            Cursor cursor = database.query(tableName, allColumns, select, null, null, null, orderBy);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                ValveModel valve = cursorToValve(cursor);
+                valves.add(valve);
+                cursor.moveToNext();
+            }
+        } else {
+            Log.e(TAG, "createCategoryString() returns null string for category " + category);
+        }
+        return valves;
+    }
+
+    private static String createCategoryString(SQLiteDatabase database, int category){
+        Log.e(TAG, "The category is " +  category);
+        List<String> types = ValveTypeTable.getAllTypesByCategory(database, category);
+        String select = null;
+        if(!types.isEmpty()){
+            select = "";
+            for(String type: types){
+                if(select.length() > 0) select += " OR ";
+                select += Type + "='" + type + "'";
+            }
+
+        } else {
+            Log.e(TAG, "Attempted to query the ValveType table for category, returned empty.");
+        }
+        return select;
+    }
+
+    public static List<ValveModel> getValvesByStringAndCategory(SQLiteDatabase database, String raw, int category){
+
+        List<ValveModel> valves = new ArrayList<ValveModel>();
+        raw = raw.replace(" ", "%").replace(".", "%" ).replace(",", "%" ).replace(";", "%" ).replace(":", "%" );
+        raw = raw.replaceAll("%+","%");
+        String selectCategory = createCategoryString(database, category);
+        String select = "(" + selectCategory + ") AND " + createSearchString(raw);
+        Cursor cursor = database.query(tableName, allColumns, select, null, null, null, orderBy);
+        cursor.moveToFirst();
+        if(cursor.getCount() == 0){
+            String[] a = raw.split("%");
+            int max = 0;
+            int maxIndex = 0;
+            for(int i = 0; i < a.length; i++){
+                select = "(" + selectCategory + ") AND " + createSearchString(a[i]);
+                cursor = database.query(tableName, allColumns, select, null, null, null, null);
+                cursor.moveToFirst();
+                if(cursor.getCount() > max){
+                    max = cursor.getCount();
+                    maxIndex = i;
+                }
+            }
+            if(max>0){
+                raw = a[maxIndex];
+                cursor = database.query(tableName, allColumns, "(" + selectCategory + ") AND " + createSearchString(raw), null, null, null, orderBy);
+                cursor.moveToFirst();
+            }
+        }
+        /* select should be based on raw, if cursor is empty then refine select and try again. */
+        Log.e(TAG, "Should be searching for: " + raw);
+
+        while(!cursor.isAfterLast()){
+            ValveModel valve = cursorToValve(cursor);
+            valves.add(valve);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return valves;
+
+    }
+
     public static List<ValveModel> getValvesByString (SQLiteDatabase database, String raw){
 
         List<ValveModel> valves = new ArrayList<ValveModel>();
@@ -156,12 +233,14 @@ public class ValveTable {
         raw = raw.replaceAll("%+","%");
         String select = createSearchString(raw);
         Cursor cursor = database.query(tableName, allColumns, select, null, null, null, orderBy);
+        cursor.moveToFirst();
         if(cursor.getCount() == 0){
             String[] a = raw.split("%");
             int max = 0;
             int maxIndex = 0;
             for(int i = 0; i < a.length; i++){
                 cursor = database.query(tableName, allColumns, createSearchString(a[i]), null, null, null, null);
+                cursor.moveToFirst();
                 if(cursor.getCount() > max){
                     max = cursor.getCount();
                     maxIndex = i;
@@ -170,11 +249,11 @@ public class ValveTable {
             if(max>0){
                 raw = a[maxIndex];
                 cursor = database.query(tableName, allColumns, createSearchString(raw), null, null, null, orderBy);
+                cursor.moveToFirst();
             }
         }
         /* select should be based on raw, if cursor is empty then refine select and try again. */
         Log.e(TAG, "Should be searching for: " + raw);
-        cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
             ValveModel valve = cursorToValve(cursor);
@@ -195,6 +274,24 @@ public class ValveTable {
         List<ValveModel> valves = new ArrayList<ValveModel>();
 
         Cursor cursor = database.query(tableName, allColumns, Area + "=" + area, null, null, null, orderBy);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            ValveModel valve = cursorToValve(cursor);
+            valves.add(valve);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return valves;
+    }
+
+    public static List<ValveModel> getValvesByAreaAndCategory(SQLiteDatabase database, String area, int category){
+        List<ValveModel> valves = new ArrayList<ValveModel>();
+
+        String selectCategory = createCategoryString(database, category);
+
+        Cursor cursor = database.query(tableName, allColumns, "(" + selectCategory + ") AND " + Area + "=" + area, null, null, null, orderBy);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){

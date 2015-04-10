@@ -54,5 +54,7 @@
         <item>Svæði 8</item>
         <item>Svæði 9</item>
     </string-array>
+    <string name="title_activity_cold_valve_table">ColdValveTable</string>
+    <string name="title_activity_database_choice">DatabaseChoice</string>
 
 </resources>

@@ -50,13 +50,13 @@
                 android:visibility="gone"
                 android:background="@xml/database_button"/>
 
-            <Button
+            <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"
                 android:id="@+id/rowDatabaseDeleteButton"
                 android:visibility="gone"
-                android:background="@xml/database_button"/>
+                android:background="@xml/database_button"/>-->
 
         </LinearLayout>
     </LinearLayout>

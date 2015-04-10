@@ -24,11 +24,13 @@ public class InfoChoice extends Activity implements OnClickListener, AdapterView
 
     EditText addressLine;
     private String currentArea;
+    private int category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_choice);
+        category = this.getIntent().getExtras().getInt(DatabaseActivity.KEY_CATEGORY);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Database database = new Database(this);
@@ -45,34 +47,38 @@ public class InfoChoice extends Activity implements OnClickListener, AdapterView
         b.setOnClickListener(this);
         b = (Button) findViewById(R.id.searchByAreaButton);
         b.setOnClickListener(this);
+        b = (Button) findViewById(R.id.addressBtn);
+        b.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        Intent databaseActivity;
+        Intent databaseActivity = new Intent(this, DatabaseActivity.class);
+        databaseActivity.putExtra(DatabaseActivity.KEY_CATEGORY, category);
         switch(v.getId()){
             case R.id.database:
-                databaseActivity = new Intent(this, DatabaseActivity.class);
                 databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_ALL);
                 databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, "");
-                startActivity(databaseActivity);
                 break;
             case R.id.search:
                 addressLine = (EditText)findViewById(R.id.address);
                 String s = addressLine.getText().toString();
-                databaseActivity = new Intent(this, DatabaseActivity.class);
                 databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_SEARCH);
                 databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, s);
-                startActivity(databaseActivity);
                 break;
             case R.id.searchByAreaButton:
-                databaseActivity = new Intent(this, DatabaseActivity.class);
                 databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_AREA);
                 databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, currentArea);
-                startActivity(databaseActivity);
+                break;
+            case R.id.addressBtn:
+                addressLine = (EditText) findViewById(R.id.address);
+                String st = addressLine.getText().toString();
+                databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_ADDRESS);
+                databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, st);
                 break;
            }
+        startActivity(databaseActivity);
     }
 
     @Override

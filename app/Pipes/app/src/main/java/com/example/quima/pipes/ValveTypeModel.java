@@ -7,6 +7,7 @@ public class ValveTypeModel {
     static long id;
     static String type;
     static String comment;
+    static int category;
 
     public long getId(){
         return id;
@@ -27,6 +28,10 @@ public class ValveTypeModel {
     public String getComment(){ return comment;}
 
     public void setComment(String comment){ this.comment = comment;}
+
+    public int getCategory(){ return category; }
+
+    public void setCategory(int category){ this.category = category; }
 
     public String toString(){
         return type;

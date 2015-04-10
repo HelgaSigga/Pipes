@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quima.pipes" >
 
@@ -16,7 +16,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.quima.pipes.gcm.permission.C2D_MESSAGE" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -60,6 +59,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Start" />
         </activity>
+        <activity
+            android:name=".DatabaseActivity"
+            android:label="@string/title_activity_database" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Start" />
+        </activity>
 
         <receiver
             android:name=".GcmReceiver"
@@ -85,10 +91,18 @@
             android:name=".Area"
             android:label="@string/title_activity_area" >
         </activity>
-    <!--    <activity
+    	<activity
             android:name=".Address"
             android:label="@string/title_activity_address" >
-        </activity>-->
+        </activity>
+        <activity
+            android:name=".ColdValveTable"
+            android:label="@string/title_activity_cold_valve_table" >
+        </activity>
+        <activity
+            android:name=".DatabaseChoice"
+            android:label="@string/title_activity_database_choice" >
+        </activity>
     </application>
 
 </manifest>

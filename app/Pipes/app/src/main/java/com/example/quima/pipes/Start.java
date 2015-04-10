@@ -26,8 +26,8 @@ public class Start extends Activity implements OnClickListener{
         switch(v.getId()){
             case R.id.database:
                 //Intent Database = new Intent(this, DatabaseActivity.class);
-                Intent infoChoicActivity = new Intent(this, InfoChoice.class);
-                startActivity(infoChoicActivity);
+                Intent DbChoiceActivity = new Intent(this, DatabaseChoice.class);
+                startActivity(DbChoiceActivity);
                 break;
         }
     }
