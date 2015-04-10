@@ -2,13 +2,14 @@ package com.example.quima.pipes;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 
 /**
  * Created by Benedikt Sævarss on 27.2.2015.
  */
 public class Image {
-    private float imagePosX = -500,imagePosY = -500;
+    private float imagePosX = 0,imagePosY = 0;
     private float scale = 1;
     private float imagePartPosX[][];
     private float imagePartPosY[][];
@@ -19,16 +20,19 @@ public class Image {
     private String type;
     private int imgWidth,imgHeight;
     private int canWidth,canHeight;
-    private int gridSize = 14;
+    private int gridSize = 20;
+    private int gR = 4, gC = 9;
 
     public Image(CanvasView canvasView, Bitmap[][] bmp, String type){
         this.canvasView = canvasView;
         this.bmp = bmp;
         this.type = type;
-        this.imgWidth = bmp[0][0].getWidth();
-        this.imgHeight = bmp[0][0].getHeight();
+        this.imgWidth = bmp[gR][gC].getWidth();
+        this.imgHeight = bmp[gR][gC].getHeight();
         this.canWidth = canvasView.getWidth();
         this.canHeight = canvasView.getHeight();
+        this.imagePosX = bmp[gR][gC].getWidth() * -gC;
+        this.imagePosY = bmp[gR][gC].getHeight() * -gR;
 
         imagePartPosX = new float[gridSize][gridSize];
         imagePartPosY = new float[gridSize][gridSize];
@@ -97,11 +101,11 @@ public class Image {
         if(imagePosY > (scale-1)*this.canHeight/2){
             imagePosY = (scale-1)*this.canHeight/2;
         }
-        if(imagePosX < (this.imgWidth*-scale*12)-(scale-1)*this.canWidth/2){
-            imagePosX = (this.imgWidth*-scale*12)-(scale-1)*this.canWidth/2;
+        if(imagePosX < (this.imgWidth*-scale*18)-(scale-1)*this.canWidth/2){
+            imagePosX = (this.imgWidth*-scale*18)-(scale-1)*this.canWidth/2;
         }
-        if(imagePosY < (this.imgHeight*-scale*6.15f)-(scale-1)*this.canHeight/2){
-            imagePosY = (this.imgHeight*-scale*6.15f)-(scale-1)*this.canHeight/2;
+        if(imagePosY < (this.imgHeight*-scale*8)-(scale-1)*this.canHeight/2){
+            imagePosY = (this.imgHeight*-scale*8)-(scale-1)*this.canHeight/2;
         }
     }
 
@@ -157,6 +161,7 @@ public class Image {
 
     public void Draw(Canvas canvas){
         update();
+        canvas.drawColor(Color.WHITE);
         canvas.translate(imagePosX + canWidth/2, imagePosY + canHeight/2);
         canvas.scale(scale , scale);
 
