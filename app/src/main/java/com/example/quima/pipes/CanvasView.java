@@ -54,7 +54,7 @@ public class CanvasView extends View {
 
     public void initializeMapParts(String type){
         String mapType = type;
-        bmp = new Bitmap[9][13];
+        bmp = new Bitmap[9][14];
         for (int i = 0 ; i < 3 ; i++ ){     //row
             for (int j = 0 ; j < 3 ; j++ ){ //col
                 loadImage(i,j,mapType);
@@ -269,51 +269,89 @@ public class CanvasView extends View {
             switch(row){
                 case 0:
                     switch(col){
-                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_01);break;
-                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);break;
-                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_03);break;
-                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);break;
-                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_05);break;
-                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);break;
+                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_04);break;
+                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_05);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_06);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_07);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
                     }break;
                 case 1:
                     switch(col){
-                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_13);break;
-                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);break;
-                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_15);break;
-                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);break;
-                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_17);break;
-                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_20);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_21);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_22);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_23);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_24);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
                     }break;
                 case 2:
                     switch(col){
-                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_25);break;
-                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_26);break;
-                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_27);break;
-                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_28);break;
-                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_29);break;
-                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_34);break;
+                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_35);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_36);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_37);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_38);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_39);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_40);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_41);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
                     }break;
                 case 3:
                     switch(col){
-                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_37);break;
-                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_38);break;
-                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_39);break;
-                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_40);break;
-                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_41);break;
-                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_46);break;
+                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_47);break;
+                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_48);break;
+                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_49);break;
+                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_50);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_51);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_52);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_53);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_54);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_55);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_56);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_57);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
                     }break;
                 case 4:
                     switch(col){
-                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_49);break;
-                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_50);break;
-                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_51);break;
-                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_52);break;
-                        case 4 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.pipes_53);break;
-                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                        case 0 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_61);break;
+                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_62);break;
+                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_63);break;
+                        case 3 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_64);break;
+                        case 5 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_66);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_67);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_68);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_69);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_70);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_71);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_72);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
+                    }break;
+                case 5:
+                    switch(col){
+                        case 1 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_77);break;
+                        case 2 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_78);break;
+                        case 6 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_82);break;
+                        case 7 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_83);break;
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_84);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_85);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_86);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_87);break;
+                        case 12 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_88);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
+                    }break;
+                case 6:
+                    switch(col){
+                        case 8 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_99);break;
+                        case 9 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_100);break;
+                        case 10 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_101);break;
+                        case 11 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_102);break;
+                        case 12 :bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.vatnsveita_103);break;
+                        default:bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
                     }break;
                 default:
-                    bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                    bmp[row][col] = BitmapFactory.decodeResource(getResources(), R.drawable.whiteimg);
             }
         }
 // Images for sewage system

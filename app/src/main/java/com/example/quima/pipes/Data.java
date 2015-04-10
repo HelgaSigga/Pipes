@@ -9,17 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
+
 
 /**
  * Created by Benedikt Sævarss on 28.1.2015.
  */
 public class Data extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    static String data;
-    EditText addressLine;
+    private String data;
+    private EditText addressLine;
     private String currentArea;
+    private Spinner spinner;
 
     /** Called when the activity is first created. */
     @Override
@@ -27,7 +28,7 @@ public class Data extends Activity implements View.OnClickListener, AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner2);
         Database database = new Database(this);
         database.open();
         ArrayList<String> list = database.getAreas();
@@ -56,7 +57,6 @@ public class Data extends Activity implements View.OnClickListener, AdapterView.
                 spinner.setVisibility(View.GONE);
                 address.setVisibility(View.VISIBLE);
             }
-
         }
     }
 
@@ -65,27 +65,24 @@ public class Data extends Activity implements View.OnClickListener, AdapterView.
         Intent databaseActivity;
         switch(v.getId()){
             case R.id.searchButton:
-                if(data.equals("S")){
+                databaseActivity = new Intent(this, DatabaseActivity.class);
+                if(data.equals("A")){
                     addressLine = (EditText)findViewById(R.id.address);
                     String s = addressLine.getText().toString();
-                    databaseActivity = new Intent(this, DatabaseActivity.class);
                     databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_SEARCH);
                     databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, s);
-                    startActivity(databaseActivity);
                 }
-                if(data.equals("A")){
-                    databaseActivity = new Intent(this, DatabaseActivity.class);
+                if(data.equals("S")){
                     databaseActivity.putExtra(DatabaseActivity.KEY_ACTION, DatabaseActivity.VAL_AREA);
                     databaseActivity.putExtra(DatabaseActivity.KEY_SEARCH, currentArea);
-                    startActivity(databaseActivity);
                 }
+                startActivity(databaseActivity);
                 break;
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         TextViewSpinnerAdapter<String> adapter = (TextViewSpinnerAdapter<String>)spinner.getAdapter();
         if(i < adapter.getCount()) {
             currentArea = (String)adapter.getItem(i);

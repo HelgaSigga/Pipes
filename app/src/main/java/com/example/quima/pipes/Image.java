@@ -19,7 +19,7 @@ public class Image {
     private String type;
     private int imgWidth,imgHeight;
     private int canWidth,canHeight;
-    private int gridSize = 13;
+    private int gridSize = 14;
 
     public Image(CanvasView canvasView, Bitmap[][] bmp, String type){
         this.canvasView = canvasView;
@@ -97,11 +97,11 @@ public class Image {
         if(imagePosY > (scale-1)*this.canHeight/2){
             imagePosY = (scale-1)*this.canHeight/2;
         }
-        if(imagePosX < (this.imgWidth*-scale*11)-(scale-1)*this.canWidth/2){
-            imagePosX = (this.imgWidth*-scale*11)-(scale-1)*this.canWidth/2;
+        if(imagePosX < (this.imgWidth*-scale*12)-(scale-1)*this.canWidth/2){
+            imagePosX = (this.imgWidth*-scale*12)-(scale-1)*this.canWidth/2;
         }
-        if(imagePosY < (this.imgHeight*-scale*7)-(scale-1)*this.canHeight/2){
-            imagePosY = (this.imgHeight*-scale*7)-(scale-1)*this.canHeight/2;
+        if(imagePosY < (this.imgHeight*-scale*6.15f)-(scale-1)*this.canHeight/2){
+            imagePosY = (this.imgHeight*-scale*6.15f)-(scale-1)*this.canHeight/2;
         }
     }
 
@@ -112,7 +112,7 @@ public class Image {
         row = (imagePosY+(canHeight/2)*scale)/(-this.imgHeight*scale);
         validRow = (int)row;
         validCol = (int)col;
-        //Log.d("pipes", imagePosX+" "+this.imgWidth*scale+"-"+col+"-"+row+"-"+scale);
+        Log.d("pipes", imagePosX+" "+this.imgWidth*scale+"-"+col+"-"+row+"-"+scale);
         // Moving upp or down
         if(validRow != oldRow) {
             if(validRow < oldRow){
