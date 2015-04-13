@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.quima.pipes.Area">
+    tools:context="com.example.quima.pipes.Area"
+    android:background="#0a2615e3">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,6 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Hvaða svæði viltu skoða?"
         android:id="@+id/textView2"
+        android:textColor="#ff000000"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -19,7 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 1"
+        android:textColor="#ffffffff"
         android:id="@+id/area1"
+        android:background="@xml/bevel_button"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -31,7 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 2"
+        android:textColor="#ffffffff"
         android:id="@+id/area2"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area1"
         android:layout_centerHorizontal="true" />
 
@@ -39,7 +45,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 3"
+        android:textColor="#ffffffff"
         android:id="@+id/area3"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -48,7 +56,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 4"
+        android:textColor="#ffffffff"
         android:id="@+id/area4"
+        android:background="@xml/bevel_button"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -57,7 +67,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 5"
+        android:textColor="#ffffffff"
         android:id="@+id/area5"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area4"
         android:layout_centerHorizontal="true" />
 
@@ -65,7 +77,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 6"
+        android:textColor="#ffffffff"
         android:id="@+id/area6"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area5"
         android:layout_alignLeft="@+id/area3"
         android:layout_alignStart="@+id/area3" />
@@ -74,7 +88,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 7"
+        android:textColor="#ffffffff"
         android:id="@+id/area7"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area8"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -83,7 +99,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 8"
+        android:textColor="#ffffffff"
         android:id="@+id/area8"
+        android:background="@xml/bevel_button"
         android:layout_alignTop="@+id/area9"
         android:layout_centerHorizontal="true" />
 
@@ -91,7 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Svæði 9"
+        android:textColor="#ffffffff"
         android:id="@+id/area9"
+        android:background="@xml/bevel_button"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/area6"
         android:layout_alignStart="@+id/area6"

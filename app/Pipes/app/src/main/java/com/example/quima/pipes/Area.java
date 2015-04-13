@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+//* This class is not really used.
 
 public class Area extends Activity implements View.OnClickListener{
 

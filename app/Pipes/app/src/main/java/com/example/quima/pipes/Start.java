@@ -64,15 +64,18 @@ public class Start extends Activity implements OnClickListener{
                 Intent Valve = new Intent(this, Data.class);
                 Valve.putExtra("data", "V");
                 startActivity(Valve);
+                //This item should not be in the options menu
                 return true;
             case R.id.findAddress:
                 Intent Address = new Intent(this, Data.class);
                 Address.putExtra("data", "A");
                 startActivity(Address);
+                //This item should not be in the options menu
                 return true;
             case R.id.showData:
                 Intent showData = new Intent(this, InfoChoice.class);
                 startActivity(showData);
+                //This item should not be in the options menu
                 return true;
         }
         return super.onOptionsItemSelected(item);

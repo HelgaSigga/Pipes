@@ -3,14 +3,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#0a2615e3">
 
     <TextView
         android:layout_width="200px"
         android:layout_height="200px"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="HF\n1:5"
-        android:textColor="#ffffff"
+        android:textColor="#ff000000"
         android:id="@+id/rowDatabaseID"
         android:gravity="center"
         android:background="#C97933"/>
@@ -33,6 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Staðsetning: Hafnabakka 7"
             android:id="@+id/rowDatabaseLocation"
+            android:textColor="#ff000000"
             android:layout_gravity="right"/>
 
         <LinearLayout
@@ -45,10 +47,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="  Breyta  "
+                android:textColor="#ffffffff"
                 android:id="@+id/rowDatabaseEditButton"
-                android:visibility="gone"
-                android:background="@xml/database_button"/>
+                android:background="@xml/bevel_button"
+                android:visibility="gone"/>
 
             <!--<Button
                 android:layout_width="wrap_content"

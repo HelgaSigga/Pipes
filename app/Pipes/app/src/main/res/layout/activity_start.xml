@@ -13,7 +13,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  Gagnagrunnur  "
+        android:text=" Listi yfir loka "
         android:id="@+id/database"
         android:layout_marginTop="23dp"
         android:layout_below="@+id/info"
@@ -27,6 +27,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="     Vinsamlega veljið þær upplýsingar sem þið viljið sjá"
         android:id="@+id/info"
+        android:textColor="#ff000000"
         android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/emergency_text"/>

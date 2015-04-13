@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 /**
  * Created by Quima on 25/02/2015.
+ * A class for the dialog that comes up when adding a line to a database is requested
  */
 public class AddInfoDialog extends DialogFragment implements DialogInterface.OnClickListener{
 

@@ -83,6 +83,16 @@ public class DatabaseActivity extends ListActivity {
                 valves = database.getValvesByStringAndCategory(raw, category);
                 Log.e("DatabaseActivity","String raw after search is:\n\t" + raw);
                 break;
+            case VAL_ADDRESS:
+                /* TODO: Currently acts the same as case VAL_SEARCH
+                   Should use nonexistant table Address(csv data is prepared, res/raw/heimilisfong.csv)
+                   to match a hot valve to the given string. Also, the button should be removed when
+                   cold and drainage action is selected in the previous activity.
+                */
+                Log.e("DatabaseActivity","String raw before search is:\n\t" + raw);
+                valves = database.getValvesByStringAndCategory(raw, category);
+                Log.e("DatabaseActivity","String raw after search is:\n\t" + raw);
+                break;
             default:
                 valves = new ArrayList<ValveModel>();
                 break;

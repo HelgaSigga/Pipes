@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 /**
  * Created by Quima on 24/02/2015.
+ * A class for the dialog that comes up when changing a line in a database is requested
  */
 public class ChangeInfoDialog extends DialogFragment {
 

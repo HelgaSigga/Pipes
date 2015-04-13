@@ -187,6 +187,9 @@ public class ValveTable {
     public static List<ValveModel> getValvesByStringAndCategory(SQLiteDatabase database, String raw, int category){
 
         List<ValveModel> valves = new ArrayList<ValveModel>();
+        if(raw == null || raw.equals("")){
+            return valves;
+        }
         raw = raw.replace(" ", "%").replace(".", "%" ).replace(",", "%" ).replace(";", "%" ).replace(":", "%" );
         raw = raw.replaceAll("%+","%");
         String selectCategory = createCategoryString(database, category);
