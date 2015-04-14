@@ -12,7 +12,10 @@ import android.os.Looper;
 
 
 /**
- * Created by katrineliasdottir on 08/03/15.
+ * Kóði fyrir GoogleCloud Messaging skilaboð
+ * Ekki tókst að klára virknina en kóði skilinn eftir til að
+ * klára síðar.
+ * Created by katrineliasdottir on 07/03/15.
  */
 
 public class GcmIntentService extends IntentService {

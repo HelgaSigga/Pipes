@@ -9,9 +9,12 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 /**
- * Created by katrineliasdottir on 08/03/15.
- */
-/*
+ * Kóði fyrir GoogleCloud Messaging skilaboð
+ * Ekki tókst að klára virknina en kóði skilinn eftir til að
+ * klára síðar.
+ * Created by katrineliasdottir on 07/03/15.
+
+
 class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
 
     private static Registration regService = null;

@@ -7,8 +7,12 @@ package com.example.quima.pipes;
         import android.content.ComponentName;
 
 /**
+ * Kóði fyrir GoogleCloud Messaging skilaboð
+ * Ekki tókst að klára virknina en kóði skilinn eftir til að
+ * klára síðar.
  * Created by katrineliasdottir on 07/03/15.
  */
+
 public class GcmReceiver extends WakefulBroadcastReceiver {
 
     @Override

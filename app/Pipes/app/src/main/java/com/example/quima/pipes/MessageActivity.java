@@ -11,6 +11,9 @@ import android.widget.EditText;
 
 
 /**
+ * Kóði fyrir GoogleCloud Messaging skilaboð
+ * Ekki tókst að klára virknina en kóði skilinn eftir til að
+ * klára síðar.
  * Created by katrineliasdottir on 07/03/15.
  */
 
